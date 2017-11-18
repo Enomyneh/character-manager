@@ -1,21 +1,11 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      fixed
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      app
-    >
-          <v-btn icon @click.stop="miniVariant = !miniVariant">
+    <v-navigation-drawer fixed :mini-variant="miniVariant" :clipped="clipped" v-model="drawer" app>
+      <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile 
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
+        <v-list-tile avatar value="true" v-for="(item, i) in items" :key="i" @click="callMenuItem(item)">
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
           </v-list-tile-action>
@@ -78,6 +68,7 @@
 <script>
 import CharacterEditor from './components/CharacterEditor.vue'
 
+
   export default {
     data () {
       return {
@@ -85,16 +76,33 @@ import CharacterEditor from './components/CharacterEditor.vue'
         drawer: true,
         fixed: false,
         items: [
-          { icon: 'bubble_chart', title: 'Inspire' },
-          { icon: 'new', title: 'New Character' },
+          { icon: 'create', title: 'New Character' },
+          { icon: 'loop', title: 'Random Character' },
+          { icon: 'cloud_upload', title: 'Save to browser', func: this.saveLocally },
+          { icon: 'cloud_download', title: 'Load from browser' },
+          { icon: 'file_download', title: 'Save to file'},
+          { icon: 'file_upload', title: 'Load from file' }
         ],
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Character Manager'
-
+        title: 'Character Manager',
+        callMenuItem: function(menuItem){
+          console.log("Calling function " + menuItem.title);
+          if(menuItem.func){
+            menuItem.func();
+          }          
+        }
       }
     },
-    components: {CharacterEditor}
+    methods: {
+      saveLocally : function(){
+        this.$eventHub.$emit('saveCharacterToFile');
+        // this.$emit('saveCharacterToFile');
+      }
+    },
+    components: {
+      CharacterEditor
+    }
   }
 </script>
