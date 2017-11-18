@@ -19,9 +19,18 @@ export default {
         store.set(character.id, character);
 
         // Update the list of stored characters
+        var characterIds = this.getLocalCharacterIds();
+        if (!characterIds.includes(character.id)) characterIds.push(character.id);
+        store.set("characters", characterIds);
+    },
+
+    loadLocally(id) {
+        return store.get(id);
+    },
+
+    getLocalCharacterIds() {
         var characters = store.get("characters");
-        if (!characters) characters = [];
-        if (!characters.includes(character.id)) characters.push(character.id);
-        store.set("characters", characters);
+        if (!characters) return [];
+        return characters;
     }
 };

@@ -1,22 +1,13 @@
 <template>
   <v-layout column align-center>
-        <h4 class="text-center">Personal</h4>
-        <v-text-field
-              name="input-1"
-              label="Name"
-              id="testing"
-              v-model="character.name"
-            ></v-text-field>
-    <img src="/public/v.png" alt="Vuetify.js" class="mb-5" />
-    <blockquote>
-      &#8220;First, solve the problem. Then, write the code.&#8221;
-      <footer>
-        <small>
-          <em>&mdash;John Johnson</em>
-        </small>
-      </footer>
-    </blockquote>
-    {{message}}
+    <h4 class="text-center">Personal</h4>
+    <v-text-field
+          name="input-1"
+          label="Name"
+          id="testing"
+          v-model="character.name"
+          @input="save"
+        ></v-text-field>
   </v-layout>
 </template>
 
@@ -24,13 +15,27 @@
 import CharacterDao from '../dataAccess/CharacterDao.js'
 import math from '../dataAccess/math.js'
 
+
+var getLastSavedCharacter = function(){
+  var characters = CharacterDao.getLocalCharacterIds();
+  var characterId = characters[characters.length-1];
+  if(!characterId) return {"name":"Unamed Character"};
+
+  return CharacterDao.loadLocally(characterId);
+};
+
 export default {
   data () {
     return {
       message: "This is the Character Editor!",
-      character: {},
-      characterDao: CharacterDao
+      character: getLastSavedCharacter(),
+      characterDao: CharacterDao,
     }
+  },
+  methods:{
+      save: function(){
+        this.$eventHub.$emit('saveCharacterToFile');
+      }
   },
   created: function(){
     console.log("Character Editor Created");

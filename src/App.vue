@@ -73,7 +73,7 @@ import CharacterEditor from './components/CharacterEditor.vue'
     data () {
       return {
         clipped: false,
-        drawer: true,
+        drawer: false,
         fixed: false,
         items: [
           { icon: 'create', title: 'New Character' },
