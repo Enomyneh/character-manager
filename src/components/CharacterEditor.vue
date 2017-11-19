@@ -30,6 +30,7 @@
 <script>
 import CharacterDao from "../dataAccess/CharacterDao.js";
 import Personal from "./Personal.vue";
+import Attributes from "./Attributes.vue";
 
 var getLastSavedCharacter = function() {
   var characters = CharacterDao.getLocalCharacterIds();
@@ -45,7 +46,10 @@ export default {
       message: "This is the Character Editor!",
       character: getLastSavedCharacter(),
       characterDao: CharacterDao,
-      tabs: [{ name: "Personal", componentType: "Personal" }],
+      tabs: [
+        { name: "Personal", componentType: "Personal" },
+        { name: "Attributes", componentType: "Attributes" },
+      ],
       activeTab: null
     };
   },
@@ -56,7 +60,8 @@ export default {
     });
   },
   components: {
-    Personal: Personal
+    Personal: Personal,
+    Attributes: Attributes
   }
 };
 </script>
