@@ -25,7 +25,7 @@
         <v-icon>remove</v-icon>
       </v-btn>
       -->
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-toolbar-title v-text="title()"></v-toolbar-title>
       
       <!--
       <v-spacer></v-spacer>
@@ -66,43 +66,48 @@
 </template>
 
 <script>
-import CharacterEditor from './components/CharacterEditor.vue'
+import CharacterEditor from "./components/CharacterEditor.vue";
 
-
-  export default {
-    data () {
-      return {
-        clipped: false,
-        drawer: false,
-        fixed: false,
-        items: [
-          { icon: 'create', title: 'New Character' },
-          { icon: 'loop', title: 'Random Character' },
-          { icon: 'cloud_upload', title: 'Save to browser', func: this.saveLocally },
-          { icon: 'cloud_download', title: 'Load from browser' },
-          { icon: 'file_download', title: 'Save to file'},
-          { icon: 'file_upload', title: 'Load from file' }
-        ],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Character Manager',
-        callMenuItem: function(menuItem){
-          console.log("Calling function " + menuItem.title);
-          if(menuItem.func){
-            menuItem.func();
-          }          
+export default {
+  data() {
+    return {
+      clipped: false,
+      drawer: false,
+      fixed: false,
+      items: [
+        { icon: "create", title: "New Character" },
+        { icon: "loop", title: "Random Character" },
+        {
+          icon: "cloud_upload",
+          title: "Save to browser",
+          func: this.saveLocally
+        },
+        { icon: "cloud_download", title: "Load from browser" },
+        { icon: "file_download", title: "Save to file" },
+        { icon: "file_upload", title: "Load from file" }
+      ],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: function() {
+        return "Character Manager";
+      },
+      callMenuItem: function(menuItem) {
+        console.log("Calling function " + menuItem.title);
+        if (menuItem.func) {
+          menuItem.func();
         }
       }
-    },
-    methods: {
-      saveLocally : function(){
-        this.$eventHub.$emit('saveCharacterToFile');
-        // this.$emit('saveCharacterToFile');
-      }
-    },
-    components: {
-      CharacterEditor
+    };
+  },
+  methods: {
+    saveLocally: function() {
+      this.$eventHub.$emit("saveCharacterToFile");
+      // this.$emit('saveCharacterToFile');
     }
+  },
+  components: {
+    CharacterEditor
   }
+};
 </script>
