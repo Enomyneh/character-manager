@@ -75,7 +75,7 @@ export default {
       drawer: false,
       fixed: false,
       items: [
-        { icon: "create", title: "New Character" },
+        { icon: "create", title: "New Character", func: this.newCharacter },
         { icon: "loop", title: "Random Character" },
         {
           icon: "cloud_upload",
@@ -103,7 +103,9 @@ export default {
   methods: {
     saveLocally: function() {
       this.$eventHub.$emit("saveCharacterToFile");
-      // this.$emit('saveCharacterToFile');
+    },
+    newCharacter: function() {
+      this.$eventHub.$emit("newCharacter");
     }
   },
   components: {

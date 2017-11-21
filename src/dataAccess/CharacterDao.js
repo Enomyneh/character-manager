@@ -5,6 +5,8 @@ function uuidv4() {
 }
 
 var store = require('store')
+var Character = require('../models/Character.js')
+
 
 export default {
 
@@ -25,7 +27,7 @@ export default {
     },
 
     loadLocally(id) {
-        return store.get(id);
+        return Character(store.get(id));
     },
 
     getLocalCharacterIds() {

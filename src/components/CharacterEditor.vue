@@ -29,13 +29,15 @@
 
 <script>
 import CharacterDao from "../dataAccess/CharacterDao.js";
+import Character from "../models/Character.js";
 import Personal from "./Personal.vue";
 import Attributes from "./Attributes.vue";
+import Skills from "./Skills.vue";
 
 var getLastSavedCharacter = function() {
   var characters = CharacterDao.getLocalCharacterIds();
   var characterId = characters[characters.length - 1];
-  if (!characterId) return { name: "Unamed Character" };
+  if (!characterId) return new Character();
 
   return CharacterDao.loadLocally(characterId);
 };
@@ -49,6 +51,7 @@ export default {
       tabs: [
         { name: "Personal", componentType: "Personal" },
         { name: "Attributes", componentType: "Attributes" },
+        { name: "Skills", componentType: "Skills" }
       ],
       activeTab: null
     };
@@ -58,10 +61,14 @@ export default {
     this.$eventHub.$on("saveCharacterToFile", () => {
       this.characterDao.saveLocally(this.character);
     });
+    this.$eventHub.$on("newCharacter", () => {
+      this.character = new Character();
+    });
   },
   components: {
     Personal: Personal,
-    Attributes: Attributes
+    Attributes: Attributes,
+    Skills: Skills
   }
 };
 </script>

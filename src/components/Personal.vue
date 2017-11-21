@@ -14,9 +14,9 @@
     <v-text-field @input="save" label="Cabal" v-model="character.cabal"></v-text-field>
 
     <v-text-field @input="save" label="Size" v-model="character.size" type="number" min="0"></v-text-field>
-    <v-text-field @input="save" label="Defense" v-model="character.defense" type="number" min="0"></v-text-field>
-    <v-text-field @input="save" label="Initiative" v-model="character.initiative" type="number" min="0"></v-text-field>
-    <v-text-field @input="save" label="Speed" v-model="character.speed" type="number" min="0"></v-text-field>
+    <v-text-field @input="save" label="Defense" :value="character.defense()" type="number" min="0"></v-text-field>
+    <v-text-field @input="save" label="Initiative" :value="character.initiativeMod()" type="number" min="0"></v-text-field>
+    <v-text-field @input="save" label="Speed" :value="character.speed()" type="number" min="0"></v-text-field>
     <v-text-field @input="save" label="Experience" v-model="character.experience" type="number"></v-text-field>
     <v-text-field @input="save" label="Cabal xp" v-model="character.cabalxp" type="number"></v-text-field>
     <v-text-field @input="save" label="Arcane xp" v-model="character.arcanexp" type="number"></v-text-field>
