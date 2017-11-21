@@ -7,10 +7,14 @@
         <div v-for="attribute in getAttributesByCategory(category)" :key="attribute.name ">
           <v-text-field
             type="number"
+            min="1"
             :label="attribute.name" 
-            v-model="character[attribute.name.toLowerCase()]" 
+            :value="character[attribute.name.toLowerCase()]" 
             @input="save"></v-text-field>
-            <!-- <Dots :min="0" :max="5" :value.sync="character[attribute.name.toLowerCase()]"></Dots> -->
+            <Dots :min="1" :max="5" v-model="character[attribute.name.toLowerCase()]"
+              @increment="incrementValue(attribute.name)"
+              @decrement="decrementValue(attribute.name)"
+              ></Dots>
         </div>
       </v-flex>
     </v-layout>
@@ -31,6 +35,17 @@ export default {
     },
     getAttributesByCategory: function(category) {
       return attributes.filter(attribute => attribute.category == category);
+    },
+    incrementValue: function(attributeName) {
+      this.setValue(attributeName, this.character[attributeName.toLowerCase()] + 1);
+    },
+    decrementValue: function(attributeName) {
+      this.setValue(attributeName, this.character[attributeName.toLowerCase()] - 1);
+    },
+    setValue: function(attributeName, newValue) {
+      var min = 1;
+      var max = 5;
+      this.character[attributeName.toLowerCase()] = Math.min(max, Math.max(newValue, min));
     }
   },
   props: ["character"],

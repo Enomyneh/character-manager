@@ -1,8 +1,8 @@
 <template>
     <div>
-        <img src="/public/delete.png" @click="decrement"/>
-        <img v-for="n in filled()" :key="n" src="/public/dot-filled.png"><img v-for="n in unfilled()" :key="n" src="/public/dot-empty.png">
-        <img src="/public/add.png" @click="increment" />
+        <img src="/public/delete.png" @click="$emit('decrement')"/>
+        <img v-for="n in filled()" :key="'f'+n" src="/public/dot-filled.png"><img v-for="n in unfilled()" :key="'u'+n" src="/public/dot-empty.png">
+        <img src="/public/add.png" @click="$emit('increment')" />
     </div>
 </template>
 
@@ -39,8 +39,8 @@ export default {
       this.setValue(this.value - 1);
     },
     setValue: function(newValue) {
-      this.value = Math.min(this.max, Math.max(newValue, this.min));
-      this.$emit("update:value", this.value);
+      var value = Math.min(this.max, Math.max(newValue, this.min));
+      this.$emit("update:value", value);
     }
   },
   data() {
