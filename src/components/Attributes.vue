@@ -1,18 +1,20 @@
 <template>
-  <v-layout column align-center>
+  <v-container grid-list-md text-xs-center>
     <h4 class="text-center">Attributes</h4>
-    <v-flex md6 v-for="category in categories" :key="category">
-      <h5 class="text-center text-muted ">{{category}}</h5>
-      <div v-for="attribute in getAttributesByCategory(category)" :key="attribute.name ">
-        <v-text-field
-        type="number"
-          :label="attribute.name" 
-          v-model="character[attribute.name.toLowerCase()]" 
-          @input="save"></v-text-field>
-          <!-- <Dots :min="0" :max="5" :value.sync="character[attribute.name.toLowerCase()]"></Dots> -->
-      </div>
-    </v-flex>
-  </v-layout>
+    <v-layout row wrap>
+      <v-flex xs12 sm4 v-for="category in categories" :key="category">
+        <h5 class="text-center text-muted ">{{category}}</h5>
+        <div v-for="attribute in getAttributesByCategory(category)" :key="attribute.name ">
+          <v-text-field
+            type="number"
+            :label="attribute.name" 
+            v-model="character[attribute.name.toLowerCase()]" 
+            @input="save"></v-text-field>
+            <!-- <Dots :min="0" :max="5" :value.sync="character[attribute.name.toLowerCase()]"></Dots> -->
+        </div>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

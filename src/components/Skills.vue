@@ -1,9 +1,10 @@
 <template>
-  <v-layout column align-center>
+  <v-container grid-list-md text-xs-center>
     <h4 class="text-center">Skills</h4>
-    <div v-for="category in categories" :key="category">
+    <v-layout row wrap>
+    <v-flex xs12 sm4 v-for="category in categories" :key="category">
       <h5 class="text-center text-muted ">{{category}}</h5>
-      <div v-for="skill in getSkillsByCategory(category)" :key="skill.name ">
+      <v-flex class="ma-0 pa-0" v-for="skill in getSkillsByCategory(category)" :key="skill.name ">
         <v-text-field 
           :label="skill.name" 
           v-model="character[skill.name.toLowerCase()]" 
@@ -12,9 +13,10 @@
           label="Specialties" 
           v-model="character.specialties[skill.name.toLowerCase()]" 
           @input="save"></v-text-field>          
-      </div>
-    </div>
+      </v-flex>
+    </v-flex>
   </v-layout>
+  </v-container>
 </template>
 
 <script>
