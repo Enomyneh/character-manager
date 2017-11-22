@@ -5,12 +5,14 @@
       <v-flex xs12 sm4 v-for="category in categories" :key="category">
         <h5 class="text-center text-muted ">{{category}}</h5>
         <div v-for="attribute in getAttributesByCategory(category)" :key="attribute.name ">
-          <v-text-field
+          <!-- <v-text-field
             type="number"
             min="1"
             :label="attribute.name" 
             :value="character[attribute.name.toLowerCase()]" 
-            @input="save"></v-text-field>
+            @input="save">
+              </v-text-field> -->
+            <v-subheader v-text="attribute.name"></v-subheader>
             <Dots :min="1" :max="5" v-model="character[attribute.name.toLowerCase()]"
               @increment="incrementValue(attribute.name)"
               @decrement="decrementValue(attribute.name)"
@@ -37,15 +39,12 @@ export default {
       return attributes.filter(attribute => attribute.category == category);
     },
     incrementValue: function(attributeName) {
-      this.setValue(attributeName, this.character[attributeName.toLowerCase()] + 1);
+      this.character.incrementValue(attributeName);
+      this.save();
     },
     decrementValue: function(attributeName) {
-      this.setValue(attributeName, this.character[attributeName.toLowerCase()] - 1);
-    },
-    setValue: function(attributeName, newValue) {
-      var min = 1;
-      var max = 5;
-      this.character[attributeName.toLowerCase()] = Math.min(max, Math.max(newValue, min));
+      this.character.decrementValue(attributeName);
+      this.save();
     }
   },
   props: ["character"],
