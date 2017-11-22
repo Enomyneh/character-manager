@@ -1,20 +1,12 @@
 <template>
   <v-container grid-list-md text-xs-center>
-        <v-btn small color="primary" dark @click="toggleAllSpecialties()">Specs</v-btn>
     <h4 class="text-center">Skills</h4>
+        <v-btn small color="primary" dark @click="toggleAllSpecialties()">View specilaties</v-btn>
     <v-layout row wrap>
     <v-flex xs12 sm4 v-for="category in categories" :key="category">
       <h5 class="text-center text-muted ">{{category}}</h5>
       <v-layout row wrap v-for="skill in getSkillsByCategory(category)" :key="skill.name ">
-        <!-- <v-flex xs2>
-                <v-btn small color="primary" dark @click="toggleSpecialties(skill.name)">Specs</v-btn>
-
-        </v-flex> -->
         <v-flex xs6>
-            <!-- <v-badge left>
-                <span slot="badge" @click="toggleSpecialties(skill.name)">S</span>
-                <span>{{skill.name}}</span>
-            </v-badge> -->
             <h4 class="text-center">{{skill.name}}</h4>
         </v-flex>
         <v-flex xs6>

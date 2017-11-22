@@ -41,17 +41,17 @@ var defaults = [
 ];
 
 // Skills
-skills.forEach(function (skill) {
+skills.forEach(function(skill) {
     defaults.push({ "key": skill.name.toLowerCase(), "value": 0 });
 }, this);
 
 // Attributes
-attributes.forEach(function (attribute) {
+attributes.forEach(function(attribute) {
     defaults.push({ "key": attribute.name.toLowerCase(), "value": 1 });
 }, this);
 
 // Arcana
-arcana.forEach(function (arcanum) {
+arcana.forEach(function(arcanum) {
     defaults.push({ "key": arcanum.name.toLowerCase(), "value": 0 });
 }, this);
 
@@ -73,7 +73,7 @@ export default class Character {
         }
 
         // Ensure all fields are intialised
-        defaults.forEach(function (de) {
+        defaults.forEach(function(de) {
             this.initialiseField(de.key, de.value, newCharacter);
         }, this);
 
@@ -106,6 +106,14 @@ export default class Character {
         var max = 5;
         var newValue = Math.min(max, Math.max(this[fieldName.toLowerCase()] - 1, min));
         this[fieldName.toLowerCase()] = newValue;
+    }
+
+    // Arcana
+    adjustArcana(name, amount) {
+        var min = 1;
+        var max = 5;
+        var newValue = Math.min(max, Math.max(this[name.toLowerCase()] + amount, min));
+        this[name.toLowerCase()] = newValue;
     }
 
     // Strength
