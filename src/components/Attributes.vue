@@ -4,20 +4,17 @@
     <v-layout row wrap>
       <v-flex xs12 sm4 v-for="category in categories" :key="category">
         <h5 class="text-center text-muted ">{{category}}</h5>
-        <div v-for="attribute in getAttributesByCategory(category)" :key="attribute.name ">
-          <!-- <v-text-field
-            type="number"
-            min="1"
-            :label="attribute.name" 
-            :value="character[attribute.name.toLowerCase()]" 
-            @input="save">
-              </v-text-field> -->
-            <v-subheader v-text="attribute.name"></v-subheader>
-            <Dots :min="1" :max="5" v-model="character[attribute.name.toLowerCase()]"
-              @increment="incrementValue(attribute.name)"
-              @decrement="decrementValue(attribute.name)"
-              ></Dots>
-        </div>
+        <v-layout row wrap v-for="attribute in getAttributesByCategory(category)" :key="attribute.name ">
+          <v-flex xs6>
+              <h4 class="text-center">{{attribute.name}}</h4>
+          </v-flex>
+          <v-flex xs6>
+              <Dots :min="1" :max="5" v-model="character[attribute.name.toLowerCase()]"
+                @increment="incrementValue(attribute.name)"
+                @decrement="decrementValue(attribute.name)"
+                ></Dots>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
