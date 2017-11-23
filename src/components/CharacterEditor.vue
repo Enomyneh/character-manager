@@ -37,6 +37,7 @@ import Gnosis from "./Gnosis.vue";
 import Mana from "./Mana.vue";
 import Arcana from "./Arcana.vue";
 import Flaws from "./Flaws.vue";
+import Merits from "./Merits.vue";
 
 var getLastSavedCharacter = function() {
   var characters = CharacterDao.getLocalCharacterIds();
@@ -59,7 +60,8 @@ export default {
         { name: "Gnosis", componentType: "Gnosis" },
         { name: "Mana", componentType: "Mana" },
         { name: "Arcana", componentType: "Arcana" },
-        { name: "Flaws", componentType: "Flaws" }
+        { name: "Flaws", componentType: "Flaws" },
+        { name: "Merits", componentType: "Merits" }
       ],
       activeTab: null
     };
@@ -80,7 +82,8 @@ export default {
     Gnosis: Gnosis,
     Mana: Mana,
     Arcana: Arcana,
-    Flaws: Flaws
+    Flaws: Flaws,
+    Merits: Merits
   }
 };
 </script>
