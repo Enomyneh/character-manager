@@ -1,14 +1,11 @@
 <template>
   <v-container grid-list-md text-xs-center>
-              <h4 class="text-center">Flaws</h4>
-        <div v-for="(flaw, index) in character.flaws" :key="'flaw'+index">
-            
+    <h4 class="text-center">Flaws</h4>
+    <button class="btn btn-info pull-right" @click="addFlaw()">Add</button>
+    <div v-for="(flaw, index) in character.flaws" :key="'flaw'+index">
         <v-text-field label="Flaw" v-model="flaw.name" @input="updateflaw(index, flaw)"></v-text-field>
-                <v-btn small color="primary" dark @click="removeFlaw(index)">❌</v-btn>
-        </div>
-        <div>
-            <button class="btn btn-info pull-right" @click="addFlaw()">Add</button>
-        </div>
+        <v-btn small color="primary" dark @click="removeFlaw(index)">❌</v-btn>
+    </div>
   </v-container>
 </template>
 
