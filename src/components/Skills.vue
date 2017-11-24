@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <h4 class="text-center">Skills</h4>
-        <v-btn small color="primary" dark @click="toggleAllSpecialties()">View specilaties</v-btn>
+        <v-btn small color="primary" dark @click="toggleAllSpecialties()">View specialties</v-btn>
     <v-layout row wrap>
     <v-flex xs12 sm4 v-for="category in categories" :key="category">
       <h5 class="text-center text-muted ">{{category}}</h5>
