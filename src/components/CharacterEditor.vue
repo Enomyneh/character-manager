@@ -1,5 +1,4 @@
 <template>
-  <v-layout column align-center>
   <v-tabs v-model="activeTab">
       <v-tabs-bar class="black" dark>
         
@@ -34,7 +33,6 @@
         </v-tabs-content>
       </v-tabs-items>
     </v-tabs>
-  </v-layout>
 </template>
 
 <script>
@@ -49,6 +47,7 @@ import Arcana from "./Arcana.vue";
 import Flaws from "./Flaws.vue";
 import Merits from "./Merits.vue";
 import Health from "./Health.vue";
+import Willpower from "./Willpower.vue";
 
 var getLastSavedCharacter = function() {
   var characters = CharacterDao.getLocalCharacterIds();
@@ -72,8 +71,8 @@ export default {
         { name: "Arcana", componentType: "Arcana" },
         { name: "Health", componentType: "Health" },
         { name: "Mana", componentType: "Mana" },
-        // { name: "Willpower", componentType: "Willpower" },
-        { name: "Gnosis", componentType: "Gnosis" },
+        { name: "Willpower", componentType: "Willpower" },
+        { name: "Gnosis", componentType: "Gnosis" }
         // { name: "Rotes", componentType: "Rotes" },
         // { name: "Wisdom", componentType: "Wisdom" },
         // { name: "Inventory", componentType: "Inventory" },
@@ -103,7 +102,8 @@ export default {
     Arcana: Arcana,
     Flaws: Flaws,
     Merits: Merits,
-    Health: Health
+    Health: Health,
+    Willpower: Willpower
   }
 };
 </script>

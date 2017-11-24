@@ -23,6 +23,7 @@ var defaults = [
     { "key": "size", "value": 5 },
     { "key": "gnosis", "value": 1 },
     { "key": "wisdom", "value": 7 },
+    { "key": "spentWillpowerDots", "value": 0 },
     { "key": "experience", "value": 0 },
     { "key": "cabalExperience", "value": 0 },
     { "key": "arcaneExperience", "value": 0 },
@@ -131,20 +132,26 @@ export default class Character {
     };
 
     // Willpower
-    maxWillpower() {
+    maxWillpowerDots() {
         return this.resolve + this.composure;
-    };
+    }
+    maxWillpower() {
+        return this.maxWillpowerDots() - this.spentWillpowerDots;
+    }
 
     adjustWillpower(amount) {
         this.logUpdate("willpower", () =>
-            this.willpower = Math.min(this.maxMana(), Math.max(this.willpower + amount, 0))
+            this.willpower = Math.min(this.maxWillpower(), Math.max(this.willpower + amount, 0))
         );
-    };
+    }
+    adjustWillpowerDots(amount) {
+        this.spentWillpowerDots = Math.min(this.maxWillpowerDots(), Math.max(this.spentWillpowerDots + amount, 0))
+    }
 
     // Mana
     maxMana() {
         return this.getGnosisData(this.gnosis).maxMana;
-    };
+    }
 
     maxManaPerTurn() {
         return this.getGnosisData(this.gnosis).maxManaPerTurn;
