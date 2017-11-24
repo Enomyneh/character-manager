@@ -110,7 +110,7 @@ export default class Character {
 
     // Arcana
     adjustArcana(name, amount) {
-        var min = 1;
+        var min = 0;
         var max = 5;
         var newValue = Math.min(max, Math.max(this[name.toLowerCase()] + amount, min));
         this[name.toLowerCase()] = newValue;
