@@ -2,24 +2,34 @@
   <v-layout column align-center>
   <v-tabs v-model="activeTab">
       <v-tabs-bar class="black" dark>
+        
+        <v-tabs-item href="#fullSheet">Full Sheet</v-tabs-item>
         <v-tabs-item
-          v-for="tab in tabs"
-          :key="tab.name"
-          :href="'#' + tab.name"
+          v-for="section in sections"
+          :key="section.name"
+          :href="'#' + section.name"
           ripple
         >
-        {{ tab.name }}
+        {{ section.name }}
         </v-tabs-item>
         <v-tabs-slider color="red"></v-tabs-slider>
       </v-tabs-bar>
       <v-tabs-items>
+        <v-tabs-content id="fullSheet">
+          <v-card v-for="section in sections"
+          :key="section.name"
+          :id="section.name" flat>
+            <component :is="section.componentType" v-model="character"></component>
+          </v-card>
+
+        </v-tabs-content>
         <v-tabs-content
-          v-for="tab in tabs"
-          :key="tab.name"
-          :id="tab.name"
+          v-for="section in sections"
+          :key="section.name"
+          :id="section.name"
         >
           <v-card flat>
-            <component :is="tab.componentType" v-model="character"></component>
+            <component :is="section.componentType" v-model="character"></component>
           </v-card>
         </v-tabs-content>
       </v-tabs-items>
@@ -53,7 +63,7 @@ export default {
       message: "This is the Character Editor!",
       character: getLastSavedCharacter(),
       characterDao: CharacterDao,
-      tabs: [
+      sections: [
         { name: "Personal", componentType: "Personal" },
         { name: "Attributes", componentType: "Attributes" },
         { name: "Skills", componentType: "Skills" },
