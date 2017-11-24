@@ -38,12 +38,12 @@ import Mana from "./Mana.vue";
 import Arcana from "./Arcana.vue";
 import Flaws from "./Flaws.vue";
 import Merits from "./Merits.vue";
+import Health from "./Health.vue";
 
 var getLastSavedCharacter = function() {
   var characters = CharacterDao.getLocalCharacterIds();
   var characterId = characters[characters.length - 1];
   if (!characterId) return new Character();
-
   return CharacterDao.loadLocally(characterId);
 };
 
@@ -61,7 +61,8 @@ export default {
         { name: "Mana", componentType: "Mana" },
         { name: "Arcana", componentType: "Arcana" },
         { name: "Flaws", componentType: "Flaws" },
-        { name: "Merits", componentType: "Merits" }
+        { name: "Merits", componentType: "Merits" },
+        { name: "Health", componentType: "Health" }
       ],
       activeTab: null
     };
@@ -83,7 +84,8 @@ export default {
     Mana: Mana,
     Arcana: Arcana,
     Flaws: Flaws,
-    Merits: Merits
+    Merits: Merits,
+    Health: Health
   }
 };
 </script>
