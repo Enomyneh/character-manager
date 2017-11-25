@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <h4 class="text-center">Flaws</h4>
-    <v-btn small color="primary" dark @click="addFlaw()">Add</v-btn>
+    <v-btn small color="primary" dark @click="addFlaw()">Add flaw</v-btn>
     <v-layout row wrap  align-center v-for="(flaw, index) in character.flaws" :key="'flaw'+index">
         <v-flex xs9>
         <v-text-field label="Flaw" v-model="flaw.name" @input="updateflaw(index, flaw)"></v-text-field>
