@@ -49,6 +49,7 @@ import Merits from "./Merits.vue";
 import Health from "./Health.vue";
 import Willpower from "./Willpower.vue";
 import Wisdom from "./Wisdom.vue";
+import Inventory from "./Inventory.vue";
 
 var getLastSavedCharacter = function() {
   var characters = CharacterDao.getLocalCharacterIds();
@@ -74,8 +75,8 @@ export default {
         { name: "Mana", componentType: "Mana" },
         { name: "Willpower", componentType: "Willpower" },
         { name: "Gnosis", componentType: "Gnosis" },
-        { name: "Wisdom", componentType: "Wisdom" }
-        // { name: "Inventory", componentType: "Inventory" },
+        { name: "Wisdom", componentType: "Wisdom" },
+        { name: "Inventory", componentType: "Inventory" }
         // { name: "Rotes", componentType: "Rotes" },
         // { name: "Spells", componentType: "Spells" },
         // { name: "Nimbus", componentType: "Nimbus" },
@@ -105,7 +106,8 @@ export default {
     Merits: Merits,
     Health: Health,
     Willpower: Willpower,
-    Wisdom: Wisdom
+    Wisdom: Wisdom,
+    Inventory: Inventory
   }
 };
 </script>
