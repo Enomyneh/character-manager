@@ -51,6 +51,7 @@ import Willpower from "./Willpower.vue";
 import Wisdom from "./Wisdom.vue";
 import Inventory from "./Inventory.vue";
 import Notes from "./Notes.vue";
+import Spells from "./Spells.vue";
 
 var getLastSavedCharacter = function() {
   var characters = CharacterDao.getLocalCharacterIds();
@@ -79,7 +80,7 @@ export default {
         { name: "Wisdom", componentType: "Wisdom" },
         { name: "Inventory", componentType: "Inventory" },
         // { name: "Rotes", componentType: "Rotes" },
-        // { name: "Spells", componentType: "Spells" },
+        { name: "Spells", componentType: "Spells" },
         // { name: "Nimbus", componentType: "Nimbus" },
         // { name: "Familiar", componentType: "Familiar" },
         { name: "Notes", componentType: "Notes" }
@@ -109,7 +110,8 @@ export default {
     Willpower: Willpower,
     Wisdom: Wisdom,
     Inventory: Inventory,
-    Notes: Notes
+    Notes: Notes,
+    Spells: Spells
   }
 };
 </script>
