@@ -8,7 +8,7 @@
                 label="Derangement" 
                 v-model="character.derangements[11-n]"
                     single-line
-                    :prefix="11-n"></v-text-field>
+                    :prefix="11-n+''"></v-text-field>
             </v-flex>
             <v-flex xs1 class="mt-0 mb-0 pt-0 pb-0" @click="setWisdom(11-n)">
                 <img v-if="wiseAs(11-n)" src="/public/dot-filled.png">

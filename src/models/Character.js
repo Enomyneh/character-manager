@@ -37,6 +37,7 @@ var defaults = [
     { "key": "derangements", "value": [] },
     { "key": "activeSpells", "value": [] },
     { "key": "inventory", "value": [] },
+    { "key": "inventorySections", "value": [] },
     { "key": "specialties", "value": {} },
 
 ];
