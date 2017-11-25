@@ -18,6 +18,7 @@
         <v-text-field 
           v-if="showSpecialities(skill.name)"
           label="Specialties" 
+           single-line
           v-model="character.specialties[skill.name.toLowerCase()]" 
           @input="save"></v-text-field>          
       </v-layout>
