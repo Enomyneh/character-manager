@@ -86,7 +86,7 @@ export default {
         { name: "Spells", componentType: "Spells" },
         // { name: "Nimbus", componentType: "Nimbus" },
         // { name: "Familiar", componentType: "Familiar" },
-         { name: "Notes", componentType: "Notes" }
+        { name: "Notes", componentType: "Notes" }
       ],
       activeTab: null
     };
@@ -101,6 +101,13 @@ export default {
     });
     this.$eventHub.$on("randomCharacter", () => {
       this.character = new CharacterGenerator().generateRandomCharacter();
+    });
+    this.$eventHub.$on("saveToFile", () => {
+      CharacterDao.exportJson(this.character) 
+
+    });
+    this.$eventHub.$on("loadFromFile", () => {
+      console.log("Loading from file.");
     });
   },
   components: {

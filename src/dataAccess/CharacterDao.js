@@ -35,4 +35,23 @@ export default {
         return characters;
     },
 
+    exportJson(character) {
+        var name = prompt("Export as", character.name + '.json');
+        if (!name || name === undefined || name === "") {
+            name = 'character.json';
+        }
+
+        var text = encodeURIComponent(JSON.stringify(character));
+        var data = "data:text/json;charset=utf-8," + text;
+
+        var hf = document.createElement('a');
+
+        hf.href = data;
+        hf.download = name;
+        hf.innerHTML = hf.download;
+        document.getElementsByTagName("body")[0].appendChild(hf);
+        hf.click();
+        document.getElementsByTagName("body")[0].removeChild(hf);
+    }
+
 };

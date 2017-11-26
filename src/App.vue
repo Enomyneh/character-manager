@@ -77,14 +77,22 @@ export default {
       items: [
         { icon: "create", title: "New Character", func: this.newCharacter },
         { icon: "loop", title: "Random Character", func: this.randomCharacter },
+        // {
+        //   icon: "cloud_upload",
+        //   title: "Save to browser",
+        //   func: this.saveLocally
+        // },
+        // { icon: "cloud_download", title: "Load from browser" },
         {
-          icon: "cloud_upload",
-          title: "Save to browser",
-          func: this.saveLocally
+          icon: "file_download",
+          title: "Save to file",
+          func: this.saveToFile
         },
-        { icon: "cloud_download", title: "Load from browser" },
-        { icon: "file_download", title: "Save to file" },
-        { icon: "file_upload", title: "Load from file" }
+        {
+          icon: "file_upload",
+          title: "Load from file",
+          func: this.loadFromFile
+        }
       ],
       miniVariant: false,
       right: true,
@@ -101,14 +109,17 @@ export default {
     };
   },
   methods: {
-    saveLocally: function() {
-      this.$eventHub.$emit("autoSave");
-    },
     newCharacter: function() {
       this.$eventHub.$emit("newCharacter");
     },
     randomCharacter: function() {
       this.$eventHub.$emit("randomCharacter");
+    },
+    saveToFile: function() {
+      this.$eventHub.$emit("saveToFile");
+    },
+    loadFromFile: function() {
+      this.$eventHub.$emit("loadFromFile");
     }
   },
   components: {
