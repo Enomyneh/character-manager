@@ -4,8 +4,8 @@
         
         <v-tabs-item href="#fullSheet">Full Sheet</v-tabs-item>
         <v-tabs-item
-          v-for="section in sections"
-          :key="section.name"
+          v-for="(section, index) in sections"
+          :key="section.name + index"
           :href="'#' + section.name"
           ripple
         >
@@ -15,16 +15,16 @@
       </v-tabs-bar>
       <v-tabs-items>
         <v-tabs-content id="fullSheet">
-          <v-card v-for="section in sections"
-          :key="section.name"
+          <v-card v-for="(section, index) in sections"
+          :key="section.name + index"
           :id="section.name" flat>
             <component :is="section.componentType" v-model="character"></component>
           </v-card>
 
         </v-tabs-content>
         <v-tabs-content
-          v-for="section in sections"
-          :key="section.name"
+          v-for="(section, index) in sections"
+          :key="section.name + index"
           :id="section.name"
         >
           <v-card flat>
