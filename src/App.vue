@@ -76,7 +76,7 @@ export default {
       fixed: false,
       items: [
         { icon: "create", title: "New Character", func: this.newCharacter },
-        { icon: "loop", title: "Random Character" },
+        { icon: "loop", title: "Random Character", func: this.randomCharacter },
         {
           icon: "cloud_upload",
           title: "Save to browser",
@@ -106,6 +106,9 @@ export default {
     },
     newCharacter: function() {
       this.$eventHub.$emit("newCharacter");
+    },
+    randomCharacter: function() {
+      this.$eventHub.$emit("randomCharacter");
     }
   },
   components: {

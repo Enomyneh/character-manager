@@ -13,7 +13,7 @@
         <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
     </div>
 
-    <div v-for="(spell, index) in character.activeSpells" :key="index">
+    <div v-for="(spell, index) in character.activeSpells" :key="'spell'+index">
         <v-layout row wrap class="input-group">                
             <!-- <v-flex xs12 sm3 md3><v-text-field label="Spell" v-model="spell.name" @input="save()"></v-text-field></v-flex> -->
             <v-flex xs12 sm3 md3><v-select
@@ -37,6 +37,14 @@
 
 <script>
 import spells from "../data/spells.json";
+<<<<<<< HEAD
+=======
+var spellNames = spells
+  .map(spell => {
+    return spell.name;
+  })
+  .sort();
+>>>>>>> 057e6875117ae21f00115991f828efcfc90f716e
 
 export default {
   model: {
@@ -45,8 +53,14 @@ export default {
   props: ["character"],
   data() {
     return {
+<<<<<<< HEAD
       showDetails : false
       };
+=======
+      spellNames: spellNames,
+      showDetails: false
+    };
+>>>>>>> 057e6875117ae21f00115991f828efcfc90f716e
   },
   computed: {
       spellNames: function(){
@@ -54,29 +68,29 @@ export default {
       }
   },
   methods: {
-    spellDetails: function(spellName){
+    spellDetails: function(spellName) {
       var spell = spells.filter(spell => spell.name == spellName)[0];
-      if(!spell) return "Unable to find spell details for '" + spellName + "'.";
-      
+      if (!spell)
+        return "Unable to find spell details for '" + spellName + "'.";
+
       return spell.effect;
     },
     save: function() {
       this.$eventHub.$emit("saveCharacterToFile");
     },
     addSpell: function() {
-        this.character.activeSpells.push({
-            name: "",
-            castOnMe: true,
-            castByMe: true
-        });
-        this.save();
+      this.character.activeSpells.push({
+        name: "",
+        castOnMe: true,
+        castByMe: true
+      });
+      this.save();
     },
     removeSpell: function(index) {
-        this.character.activeSpells.splice(index, 1);
-        this.save();
-    },
+      this.character.activeSpells.splice(index, 1);
+      this.save();
+    }
   },
-  components: {
-  }
+  components: {}
 };
 </script>

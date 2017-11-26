@@ -37,7 +37,10 @@
 
 <script>
 import CharacterDao from "../dataAccess/CharacterDao.js";
+import CharacterGenerator from "../models/CharacterGenerator.js";
 import Character from "../models/Character.js";
+
+// Components
 import Personal from "./Personal.vue";
 import Attributes from "./Attributes.vue";
 import Skills from "./Skills.vue";
@@ -53,7 +56,7 @@ import Inventory from "./Inventory.vue";
 import Notes from "./Notes.vue";
 import Spells from "./Spells.vue";
 
-var getLastSavedCharacter = function() {
+var getDefaultCharacter = function() {
   var characters = CharacterDao.getLocalCharacterIds();
   var characterId = characters[characters.length - 1];
   if (!characterId) return new Character();
@@ -63,8 +66,7 @@ var getLastSavedCharacter = function() {
 export default {
   data() {
     return {
-      message: "This is the Character Editor!",
-      character: getLastSavedCharacter(),
+      character: getDefaultCharacter(),
       characterDao: CharacterDao,
       sections: [
         { name: "Personal", componentType: "Personal" },
@@ -83,7 +85,7 @@ export default {
         { name: "Spells", componentType: "Spells" },
         // { name: "Nimbus", componentType: "Nimbus" },
         // { name: "Familiar", componentType: "Familiar" },
-        { name: "Notes", componentType: "Notes" }
+         { name: "Notes", componentType: "Notes" }
       ],
       activeTab: null
     };
@@ -95,6 +97,9 @@ export default {
     });
     this.$eventHub.$on("newCharacter", () => {
       this.character = new Character();
+    });
+    this.$eventHub.$on("randomCharacter", () => {
+      this.character = new CharacterGenerator().generateRandomCharacter();
     });
   },
   components: {

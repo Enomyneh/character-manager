@@ -6,8 +6,6 @@ function uuidv4() {
 
 var store = require('store')
 import Character from '../models/Character.js'
-// var Character = require('../models/Character.js')
-
 
 export default {
 
@@ -35,5 +33,6 @@ export default {
         var characters = store.get("characters");
         if (!characters) return [];
         return characters;
-    }
+    },
+
 };
