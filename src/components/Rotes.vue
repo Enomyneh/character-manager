@@ -15,7 +15,7 @@
       ></v-select></v-flex>
       <v-flex xs6>
         <h5 class="text-center">Dice Pool</h5>
-        {{character[rote.dicePoolArcana.toLowerCase()]}} + {{character[rote.dicePoolAttribute.toLowerCase()]}} + {{character[rote.dicePoolSkill.toLowerCase()]}} = {{character[rote.dicePoolArcana.toLowerCase()] + character[rote.dicePoolAttribute.toLowerCase()] + character[rote.dicePoolSkill.toLowerCase()]}}
+        {{dicePoolText(rote)}}
       </v-flex>
       <v-flex xs6><v-select
         :items="arcana"
@@ -80,6 +80,31 @@ export default {
       }
   },
   methods: {
+      dicePoolText: function(rote){
+        var text = "";
+        var total = 0;
+
+        if(!rote.dicePoolArcana){
+          text += "? + ";
+        }else{
+          text += this.character[rote.dicePoolArcana.toLowerCase()] + " + ";
+          total += this.character[rote.dicePoolArcana.toLowerCase()];
+        }
+        if(!rote.dicePoolAttribute){
+          text += "? + ";
+        }else{
+          text += this.character[rote.dicePoolAttribute.toLowerCase()] + " + ";
+          total += this.character[rote.dicePoolAttribute.toLowerCase()];
+        }
+        if(!rote.dicePoolSkill){
+          text += "? + ";
+        }else{
+          text += this.character[rote.dicePoolSkill.toLowerCase()] + " = ";
+          total += this.character[rote.dicePoolSkill.toLowerCase()];
+        }
+        text += total;
+        return text;
+      },
     spellDetails: function(spellName) {
       var spell = spells.filter(spell => spell.name == spellName)[0];
       if (!spell)
