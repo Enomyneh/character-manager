@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     saveLocally: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     newCharacter: function() {
       this.$eventHub.$emit("newCharacter");

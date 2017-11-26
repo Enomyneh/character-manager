@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     addItem: function() {
       this.character.inventory.push({

@@ -24,10 +24,10 @@ export default {
       return 10;
     },
     incrementValue: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     decrementValue: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     }
   },
   components: {

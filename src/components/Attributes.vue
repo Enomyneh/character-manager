@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     getAttributesByCategory: function(category) {
       return attributes.filter(attribute => attribute.category == category);

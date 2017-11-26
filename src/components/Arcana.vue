@@ -33,11 +33,11 @@ export default {
       },
     incrementValue: function(arcanumName) {
         this.character.adjustArcana(arcanumName, 1);
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     decrementValue: function(arcanumName) {
         this.character.adjustArcana(arcanumName, -1);
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     }
   },
   components: {

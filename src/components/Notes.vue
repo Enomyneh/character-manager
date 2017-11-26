@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     }
   },
   components: {}

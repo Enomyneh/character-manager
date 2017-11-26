@@ -113,7 +113,7 @@ export default {
       return spell.effect;
     },
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     addRote: function() {
       this.character.rotes.push({

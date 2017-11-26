@@ -31,11 +31,11 @@ export default {
     },
     incrementValue: function() {
       this.character.adjustMana(1);
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     decrementValue: function() {
         this.character.adjustMana(-1);
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     }
   },
   components: {

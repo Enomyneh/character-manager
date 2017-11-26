@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     addFlaw: function() {
       this.character.flaws.push({

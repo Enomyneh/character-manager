@@ -93,7 +93,7 @@ export default {
   },
   created: function() {
     console.log("Character Editor Created");
-    this.$eventHub.$on("saveCharacterToFile", () => {
+    this.$eventHub.$on("autoSave", () => {
       this.characterDao.saveLocally(this.character);
     });
     this.$eventHub.$on("newCharacter", () => {

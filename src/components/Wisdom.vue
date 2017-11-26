@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     wiseAs: function(wisdom) {
       return this.character.wisdom >= wisdom;

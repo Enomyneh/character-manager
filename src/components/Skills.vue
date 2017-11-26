@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     getSkillsByCategory: function(category) {
       return skills.filter(skill => skill.category == category);

@@ -33,7 +33,7 @@ export default {
       return 10 - this.character.maxWillpower();
     },
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     }
   },
   components: {

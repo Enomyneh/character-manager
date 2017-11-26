@@ -58,7 +58,7 @@ export default {
       return "Effect: " + merit.effect + " Levels: " + merit.levels + " Prerequistes: " + merit.prerequistes;
     },
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     addMerit: function() {
       this.character.merits.push({
