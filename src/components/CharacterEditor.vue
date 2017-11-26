@@ -32,6 +32,8 @@
           </v-card>
         </v-tabs-content>
       </v-tabs-items>
+      <!-- Hidden file load button -->
+      <input id="openFile" type="file" accept=".json" @change="loadFromFile" style="display:none" />
     </v-tabs>
 </template>
 
@@ -103,12 +105,39 @@ export default {
       this.character = new CharacterGenerator().generateRandomCharacter();
     });
     this.$eventHub.$on("saveToFile", () => {
-      CharacterDao.exportJson(this.character) 
-
+      CharacterDao.exportJson(this.character);
     });
     this.$eventHub.$on("loadFromFile", () => {
       console.log("Loading from file.");
+      document.getElementById("openFile").click();
     });
+  },
+  methods: {
+    /// Expects an event from a file input
+    loadFromFile: function(event) {
+      console.debug("Initialising load file dialog.");
+      if (!window.FileReader) {
+        throw "browser is not supported";
+      }
+      var input = event.target;
+
+      // Create a reader object
+      var reader = new FileReader();
+      if (input.files.length) {
+        var textFile = input.files[0];
+        // Read the file
+        reader.readAsText(textFile);
+        // When it's loaded, process it
+        var editor = this;
+        reader.onload = function(e) {
+          var loadedCharacter = new Character(JSON.parse(reader.result));
+          console.log(loadedCharacter.name + " loaded.");
+          editor.character = loadedCharacter;
+        };
+      } else {
+        throw "no file uploaded";
+      }
+    }
   },
   components: {
     Personal: Personal,
