@@ -37,14 +37,6 @@
 
 <script>
 import spells from "../data/spells.json";
-<<<<<<< HEAD
-=======
-var spellNames = spells
-  .map(spell => {
-    return spell.name;
-  })
-  .sort();
->>>>>>> 057e6875117ae21f00115991f828efcfc90f716e
 
 export default {
   model: {
@@ -53,14 +45,8 @@ export default {
   props: ["character"],
   data() {
     return {
-<<<<<<< HEAD
       showDetails : false
       };
-=======
-      spellNames: spellNames,
-      showDetails: false
-    };
->>>>>>> 057e6875117ae21f00115991f828efcfc90f716e
   },
   computed: {
       spellNames: function(){
