@@ -7,7 +7,7 @@
     <v-btn small color="primary" dark @click="addSpell()">Add spell</v-btn>
     <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
 
-    <div v-for="(spell, index) in character.activeSpells" :key="index">
+    <div v-for="(spell, index) in character.activeSpells" :key="'spell'+index">
         <v-layout row wrap class="input-group">                
             <!-- <v-flex xs12 sm3 md3><v-text-field label="Spell" v-model="spell.name" @input="save()"></v-text-field></v-flex> -->
             <v-flex xs12 sm3 md3><v-select
@@ -31,7 +31,11 @@
 
 <script>
 import spells from "../data/spells.json";
-var spellNames = spells.map((spell) => {return spell.name}).sort();
+var spellNames = spells
+  .map(spell => {
+    return spell.name;
+  })
+  .sort();
 
 export default {
   model: {
@@ -41,33 +45,33 @@ export default {
   data() {
     return {
       spellNames: spellNames,
-      showDetails : false
-      };
+      showDetails: false
+    };
   },
   methods: {
-    spellDetails: function(spellName){
+    spellDetails: function(spellName) {
       var spell = spells.filter(spell => spell.name == spellName)[0];
-      if(!spell) return "Unable to find spell details for '" + spellName + "'.";
-      
+      if (!spell)
+        return "Unable to find spell details for '" + spellName + "'.";
+
       return spell.effect;
     },
     save: function() {
       this.$eventHub.$emit("saveCharacterToFile");
     },
     addSpell: function() {
-        this.character.activeSpells.push({
-            name: "",
-            castOnMe: true,
-            castByMe: true
-        });
-        this.save();
+      this.character.activeSpells.push({
+        name: "",
+        castOnMe: true,
+        castByMe: true
+      });
+      this.save();
     },
     removeSpell: function(index) {
-        this.character.activeSpells.splice(index, 1);
-        this.save();
-    },
+      this.character.activeSpells.splice(index, 1);
+      this.save();
+    }
   },
-  components: {
-  }
+  components: {}
 };
 </script>
