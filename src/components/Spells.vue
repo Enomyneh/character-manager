@@ -29,6 +29,7 @@
             <v-flex xs2 sm2 md1><v-btn small fab color="primary" dark @click="removeSpell(index)"><i class="material-icons">delete</i></v-btn></v-flex>
         </v-layout>
         <v-flex v-if="showDetails" xs12>
+        <h5 class="text-center">Spell Description</h5>
           {{spellDetails(spell.name)}}
         </v-flex>
     </div>

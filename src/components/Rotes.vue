@@ -1,0 +1,107 @@
+<template>
+  <v-container grid-list-md text-xs-center>
+    <h4 class="text-center">Rotes</h4>
+    <div>
+      <v-btn small color="primary" dark @click="addRote()">Add rote</v-btn>
+      <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
+    </div>
+    <v-layout row wrap v-for="(rote, index) in character.rotes" :key="'rote'+index">
+      <v-flex xs12 sm3 md3><v-select
+        :items="spellNames"
+        v-model="rote.spellName"
+        label="Spell name"
+        autocomplete
+        @input="save()"
+      ></v-select></v-flex>
+      <v-flex xs6>
+        <h5 class="text-center">Dice Pool</h5>
+        {{character[rote.dicePoolArcana.toLowerCase()]}} + {{character[rote.dicePoolAttribute.toLowerCase()]}} + {{character[rote.dicePoolSkill.toLowerCase()]}} = {{character[rote.dicePoolArcana.toLowerCase()] + character[rote.dicePoolAttribute.toLowerCase()] + character[rote.dicePoolSkill.toLowerCase()]}}
+      </v-flex>
+      <v-flex xs6><v-select
+        :items="arcana"
+        v-model="rote.dicePoolArcana"
+        label="Arcana"
+        autocomplete
+        @input="save()"
+      ></v-select></v-flex>
+      <v-flex xs6><v-select
+        :items="attributes"
+        v-model="rote.dicePoolAttribute"
+        label="Attribute"
+        autocomplete
+        @input="save()"
+      ></v-select></v-flex>
+      <v-flex xs6><v-select
+        :items="skills"
+        v-model="rote.dicePoolSkill"
+        label="Skill"
+        autocomplete
+        @input="save()"
+      ></v-select></v-flex>
+      
+      <v-flex xs9><v-text-field label="Style" hint="Mages are forbidden to teach an order’s rotes to anyone not of the same order." persistent-hint v-model="rote.style" @input="save()"></v-text-field></v-flex>
+      <v-flex xs3><v-btn small fab color="primary" dark @click="removeRote(index)"><i class="material-icons">delete</i></v-btn></v-flex>
+      <v-flex v-if="showDetails" xs12>
+        <h5 class="text-center">Spell Description</h5>
+        {{spellDetails(rote.spellName)}}
+      </v-flex>
+    </v-layout>
+  </v-container>
+</template>
+
+<script>
+import spells from "../data/spells.json";
+import arcana from "../data/arcana.json";
+import attributes from "../data/attributes.json";
+import skills from "../data/skills.json";
+
+export default {
+  model: {
+    prop: "character"
+  },
+  props: ["character"],
+  data() {
+    return {
+      showDetails : false
+      };
+  },
+  computed: {
+      spellNames: function(){
+          return spells.map((spell) => {return spell.name}).sort();
+      },      
+      arcana: function(){
+          return arcana.map((arcanum) => {return arcanum.name}).sort();
+      },      
+      attributes: function(){
+          return attributes.map((attribute) => {return attribute.name}).sort();
+      },      
+      skills: function(){
+          return skills.map((skill) => {return skill.name}).sort();
+      }
+  },
+  methods: {
+    spellDetails: function(spellName) {
+      var spell = spells.filter(spell => spell.name == spellName)[0];
+      if (!spell)
+        return "Unable to find spell details for '" + spellName + "'.";
+
+      return spell.effect;
+    },
+    save: function() {
+      this.$eventHub.$emit("saveCharacterToFile");
+    },
+    addRote: function() {
+      this.character.rotes.push({
+        spellName: "",
+        dicepool: "",
+        style: ""
+      });
+      this.save();
+    },
+    removeRote: function(index) {
+      this.character.rotes.splice(index, 1);
+      this.save();
+    },
+  }
+};
+</script>
