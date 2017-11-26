@@ -1,17 +1,23 @@
 <template>
   <v-container grid-list-md text-xs-center>
     <h4 class="text-center">Spells</h4>
-    <span><strong>{{character.currentActiveSpells()}}</strong>/<strong>{{character.maxActiveSpells()}}</strong> active spells.</span>
-    <span>Tolerance: <strong>{{character.spellsCastOnCharacter()}}</strong>/<strong>{{character.spellTolerance()}}</strong>.</span>
-    <span>Casting penalty: <strong>{{character.spellAccumulationPenalty()}}</strong>.</span>
-    <v-btn small color="primary" dark @click="addSpell()">Add spell</v-btn>
-    <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
+    <div>
+        <span><strong>{{character.currentActiveSpells()}}</strong>/<strong>{{character.maxActiveSpells()}}</strong> active spells.</span>
+    </div>
+    <div>
+        <span>Tolerance: <strong>{{character.spellsCastOnCharacter()}}</strong>/<strong>{{character.spellTolerance()}}</strong>.</span>
+        <span>Casting penalty: <strong>{{character.spellAccumulationPenalty()}}</strong>.</span>
+    </div>
+    <div>
+        <v-btn small color="primary" dark @click="addSpell()">Add spell</v-btn>
+        <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
+    </div>
 
     <div v-for="(spell, index) in character.activeSpells" :key="index">
         <v-layout row wrap class="input-group">                
             <!-- <v-flex xs12 sm3 md3><v-text-field label="Spell" v-model="spell.name" @input="save()"></v-text-field></v-flex> -->
             <v-flex xs12 sm3 md3><v-select
-              v-bind:items="spellNames"
+              :items="spellNames"
               v-model="spell.name"
               label="Spell"
               autocomplete
@@ -31,7 +37,6 @@
 
 <script>
 import spells from "../data/spells.json";
-var spellNames = spells.map((spell) => {return spell.name}).sort();
 
 export default {
   model: {
@@ -40,9 +45,13 @@ export default {
   props: ["character"],
   data() {
     return {
-      spellNames: spellNames,
       showDetails : false
       };
+  },
+  computed: {
+      spellNames: function(){
+          return spells.map((spell) => {return spell.name}).sort();
+      }
   },
   methods: {
     spellDetails: function(spellName){
