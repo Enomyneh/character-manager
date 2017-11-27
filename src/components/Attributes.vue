@@ -4,7 +4,7 @@
     <v-layout row wrap>
       <v-flex xs12 sm4 v-for="category in categories" :key="category">
         <h5 class="text-center text-muted ">{{category}}</h5>
-        <v-layout row wrap v-for="attribute in getAttributesByCategory(category)" :key="attribute.name ">
+        <v-layout row wrap v-for="attribute in getAttributesByCategory(category)" :key="attribute.name + Math.floor(Math.random() * 100)">
           <v-flex xs6>
               <h4 class="text-center">{{attribute.name}}</h4>
           </v-flex>

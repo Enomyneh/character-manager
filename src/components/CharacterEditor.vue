@@ -5,7 +5,7 @@
         <v-tabs-item href="#fullSheet">Full Sheet</v-tabs-item>
         <v-tabs-item
           v-for="(section, index) in sections"
-          :key="section.name + index"
+          :key="'section' + section.name + index"
           :href="'#' + section.name"
           ripple
         >
@@ -16,7 +16,7 @@
       <v-tabs-items>
         <v-tabs-content id="fullSheet">
           <v-card v-for="(section, index) in sections"
-          :key="section.name + index"
+          :key="'tab' + section.name + index"
           :id="section.name" flat>
             <component :is="section.componentType" v-model="character"></component>
           </v-card>
@@ -24,7 +24,7 @@
         </v-tabs-content>
         <v-tabs-content
           v-for="(section, index) in sections"
-          :key="section.name + index"
+          :key="'content' + section.name + index"
           :id="section.name"
         >
           <v-card flat>
@@ -113,6 +113,7 @@ export default {
     });
   },
   methods: {
+    // This should moved into a component if there isn't one for it already.
     /// Expects an event from a file input
     loadFromFile: function(event) {
       console.debug("Initialising load file dialog.");

@@ -1,7 +1,7 @@
 <template>
     <div>
         <img src="/public/delete.png" @click="$emit('decrement')"/>
-        <img v-for="n in filled()" :key="'f'+n" src="/public/dot-filled.png"><img v-for="n in unfilled()" :key="'u'+n" src="/public/dot-empty.png">
+        <img v-for="n in filled()" :key="'f'+n + Math.floor(Math.random() * 100)" src="/public/dot-filled.png"><img v-for="n in unfilled()" :key="'u'+n + Math.floor(Math.random() * 100)" src="/public/dot-empty.png">
         <img src="/public/add.png" @click="$emit('increment')" />
     </div>
 </template>
