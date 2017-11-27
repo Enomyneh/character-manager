@@ -6,32 +6,33 @@
       <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
     </div>
     <v-layout row wrap v-for="(rote, index) in character.rotes" :key="'rote'+index">
-      <v-flex xs12 sm3 md3><v-select
+      <v-flex xs12 sm5 md3><v-select
         :items="spellNames"
         v-model="rote.spellName"
         label="Spell name"
         autocomplete
         @input="save()"
       ></v-select></v-flex>
-      <v-flex xs6>
+      <v-flex xs9 sm5 md2><v-text-field label="Style" hint="Order / Seer / Banisher" v-model="rote.style" @input="save()"></v-text-field></v-flex>
+      <v-flex xs6 sm2 md1>
         <h5 class="text-center">Dice Pool</h5>
         {{dicePoolText(rote)}}
       </v-flex>
-      <v-flex xs6><v-select
+      <v-flex xs6 sm3 md1><v-select
         :items="arcana"
         v-model="rote.dicePoolArcana"
         label="Arcana"
         autocomplete
         @input="save()"
       ></v-select></v-flex>
-      <v-flex xs6><v-select
+      <v-flex xs6 sm3 md2><v-select
         :items="attributes"
         v-model="rote.dicePoolAttribute"
         label="Attribute"
         autocomplete
         @input="save()"
       ></v-select></v-flex>
-      <v-flex xs6><v-select
+      <v-flex xs6 sm3 md2><v-select
         :items="skills"
         v-model="rote.dicePoolSkill"
         label="Skill"
@@ -39,8 +40,7 @@
         @input="save()"
       ></v-select></v-flex>
       
-      <v-flex xs9><v-text-field label="Style" hint="Mages are forbidden to teach an order’s rotes to anyone not of the same order." persistent-hint v-model="rote.style" @input="save()"></v-text-field></v-flex>
-      <v-flex xs3><v-btn small fab color="primary" dark @click="removeRote(index)"><i class="material-icons">delete</i></v-btn></v-flex>
+      <v-flex xs3 sm3 md1><v-btn small fab color="primary" dark @click="removeRote(index)"><i class="material-icons">delete</i></v-btn></v-flex>
       <v-flex v-if="showDetails" xs12>
         <h5 class="text-center">Spell Description</h5>
         {{spellDetails(rote.spellName)}}
@@ -62,49 +62,65 @@ export default {
   props: ["character"],
   data() {
     return {
-      showDetails : false
-      };
+      showDetails: false
+    };
   },
   computed: {
-      spellNames: function(){
-          return spells.map((spell) => {return spell.name}).sort();
-      },      
-      arcana: function(){
-          return arcana.map((arcanum) => {return arcanum.name}).sort();
-      },      
-      attributes: function(){
-          return attributes.map((attribute) => {return attribute.name}).sort();
-      },      
-      skills: function(){
-          return skills.map((skill) => {return skill.name}).sort();
-      }
+    spellNames: function() {
+      return spells
+        .map(spell => {
+          return spell.name;
+        })
+        .sort();
+    },
+    arcana: function() {
+      return arcana
+        .map(arcanum => {
+          return arcanum.name;
+        })
+        .sort();
+    },
+    attributes: function() {
+      return attributes
+        .map(attribute => {
+          return attribute.name;
+        })
+        .sort();
+    },
+    skills: function() {
+      return skills
+        .map(skill => {
+          return skill.name;
+        })
+        .sort();
+    }
   },
   methods: {
-      dicePoolText: function(rote){
-        var text = "";
-        var total = 0;
+    dicePoolText: function(rote) {
+      var text = "";
+      var total = 0;
 
-        if(!rote.dicePoolArcana){
-          text += "? + ";
-        }else{
-          text += this.character[rote.dicePoolArcana.toLowerCase()] + " + ";
-          total += this.character[rote.dicePoolArcana.toLowerCase()];
-        }
-        if(!rote.dicePoolAttribute){
-          text += "? + ";
-        }else{
-          text += this.character[rote.dicePoolAttribute.toLowerCase()] + " + ";
-          total += this.character[rote.dicePoolAttribute.toLowerCase()];
-        }
-        if(!rote.dicePoolSkill){
-          text += "? + ";
-        }else{
-          text += this.character[rote.dicePoolSkill.toLowerCase()] + " = ";
-          total += this.character[rote.dicePoolSkill.toLowerCase()];
-        }
-        text += total;
-        return text;
-      },
+      if (!rote.dicePoolArcana) {
+        text += "? + ";
+      } else {
+        text += this.character[rote.dicePoolArcana.toLowerCase()] + " + ";
+        total += this.character[rote.dicePoolArcana.toLowerCase()];
+      }
+      if (!rote.dicePoolAttribute) {
+        text += "? + ";
+      } else {
+        text += this.character[rote.dicePoolAttribute.toLowerCase()] + " + ";
+        total += this.character[rote.dicePoolAttribute.toLowerCase()];
+      }
+      if (!rote.dicePoolSkill) {
+        text += "? = ";
+      } else {
+        text += this.character[rote.dicePoolSkill.toLowerCase()] + " = ";
+        total += this.character[rote.dicePoolSkill.toLowerCase()];
+      }
+      text += total;
+      return text;
+    },
     spellDetails: function(spellName) {
       var spell = spells.filter(spell => spell.name == spellName)[0];
       if (!spell)
@@ -126,7 +142,7 @@ export default {
     removeRote: function(index) {
       this.character.rotes.splice(index, 1);
       this.save();
-    },
+    }
   }
 };
 </script>
