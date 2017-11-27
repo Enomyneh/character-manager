@@ -28,7 +28,7 @@
           :id="section.name"
         >
           <v-card flat>
-            <component :is="section.componentType" v-model="character"></component>
+            <component :is="section.componentType" v-model="character" noHeader="true"></component>
           </v-card>
         </v-tabs-content>
       </v-tabs-items>
