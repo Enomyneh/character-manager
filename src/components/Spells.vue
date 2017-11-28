@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Spells</h4>
+    <h4 v-if="!noHeader" class="text-center">Spells</h4>
     <div>
         <span><strong>{{character.currentActiveSpells()}}</strong>/<strong>{{character.maxActiveSpells()}}</strong> active spells.</span>
     </div>
@@ -43,7 +43,7 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {
       showDetails : false

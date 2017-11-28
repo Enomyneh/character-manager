@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Attributes</h4>
+    <h4 v-if="!noHeader" class="text-center">Attributes</h4>
     <v-layout row wrap>
       <v-flex xs12 sm4 v-for="category in categories" :key="category">
         <h5 class="text-center text-muted ">{{category}}</h5>
@@ -44,7 +44,7 @@ export default {
       this.save();
     }
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {
       categories: ["Mental", "Physical", "Social"]

@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Merits</h4>
+    <h4 v-if="!noHeader" class="text-center">Merits</h4>
     <v-btn small color="primary" dark @click="addMerit()">Add merit</v-btn>
     <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
     <v-layout row wrap align-center v-for="(merit, index) in character.merits" :key="'merit'+index">
@@ -43,7 +43,7 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {
       meritNames: meritNames,

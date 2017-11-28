@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Flaws</h4>
+    <h4 v-if="!noHeader" class="text-center">Flaws</h4>
     <v-btn small color="primary" dark @click="addFlaw()">Add flaw</v-btn>
     <v-layout row wrap v-for="(flaw, index) in character.flaws" :key="'flaw'+index">
         <v-flex xs9>
@@ -18,7 +18,7 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   },

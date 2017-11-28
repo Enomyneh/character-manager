@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Personal</h4>
+    <h4 v-if="!noHeader" class="text-center">Personal</h4>
     <v-layout  row wrap >
       <v-flex xs12 sm4>
         <v-text-field @input="save" label="Name" v-model="character.name"></v-text-field>
@@ -39,7 +39,7 @@ export default {
       this.$eventHub.$emit("autoSave");
     }
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   }

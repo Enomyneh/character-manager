@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Rotes</h4>
+    <h4 v-if="!noHeader" class="text-center">Rotes</h4>
     <div>
       <v-btn small color="primary" dark @click="addRote()">Add rote</v-btn>
       <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
@@ -59,7 +59,7 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {
       showDetails: false

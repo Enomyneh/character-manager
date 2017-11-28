@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Willpower</h4>
+    <h4 v-if="!noHeader" class="text-center">Willpower</h4>
     <!-- {{character.maxWillpower()}}|{{unusedSpace()}}|{{character.willpower}}|{{usedWillpower()}} -->
     <div>
         <img v-for="n in character.maxWillpower()" :key="'maxWillpower'+n" src="/public/dot-filled.png"><img v-for="n in unusedSpace()" :key="'unusedDots'+n" src="/public/dot-empty.png">
@@ -21,7 +21,7 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   },

@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-              <h4 class="text-center">Gnosis</h4>
+              <h4 v-if="!noHeader" class="text-center">Gnosis</h4>
         <!-- <div>
             <img v-for="n in character.gnosis" src=".\img\dot-filled.png" :key="'filled'+n"><img v-for="n in unusedSpace()" src=".\img\dot-empty.png":key="'unfilled'+n">
         </div>
@@ -22,7 +22,7 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   },

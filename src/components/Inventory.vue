@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Inventory</h4>
+    <h4 v-if="!noHeader" class="text-center">Inventory</h4>
     <div>
         Maximum carry of
         <strong>{{character.carryingCapacity()}}</strong>.
@@ -21,7 +21,7 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   },

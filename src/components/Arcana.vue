@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-        <h4 class="text-center">Arcana</h4>
+        <h4 v-if="!noHeader" class="text-center">Arcana</h4>
         <v-layout row wrap v-for="arcanum in getArcana()" :key="arcanum.name">
             <v-flex xs6>
                 <h4 class="text-center">{{arcanum.name}}</h4>
@@ -23,20 +23,20 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   },
   methods: {
-      getArcana: function(){
-          return arcana;
-      },
+    getArcana: function() {
+      return arcana;
+    },
     incrementValue: function(arcanumName) {
-        this.character.adjustArcana(arcanumName, 1);
+      this.character.adjustArcana(arcanumName, 1);
       this.$eventHub.$emit("autoSave");
     },
     decrementValue: function(arcanumName) {
-        this.character.adjustArcana(arcanumName, -1);
+      this.character.adjustArcana(arcanumName, -1);
       this.$eventHub.$emit("autoSave");
     }
   },
