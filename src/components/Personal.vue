@@ -3,7 +3,7 @@
     <h4 v-if="!noHeader" class="text-center">Personal</h4>
     <v-layout  row wrap >
       <v-flex xs12 sm4>
-        <v-text-field @input="save" label="Name" v-model="character.name"></v-text-field>
+        <v-text-field @input="saveName" label="Name" v-model="character.name"></v-text-field>
         <v-text-field @input="save" label="Age" v-model="character.age" type="number" min="0"></v-text-field>
         <v-text-field @input="save" label="Player" v-model="character.player"></v-text-field>
         <v-text-field @input="save" label="Chronicle" v-model="character.chronicle"></v-text-field>
@@ -35,6 +35,10 @@ export default {
     prop: "character"
   },
   methods: {
+    saveName: function() {
+      this.$eventHub.$emit("autoSave");
+      this.$eventHub.$emit("nameChange", this.character.name);
+    },
     save: function() {
       this.$eventHub.$emit("autoSave");
     }

@@ -25,7 +25,7 @@
         <v-icon>remove</v-icon>
       </v-btn>
       -->
-      <v-toolbar-title v-text="title()"></v-toolbar-title>
+      <v-toolbar-title v-text="title"></v-toolbar-title>
       
       <!--
       <v-spacer></v-spacer>
@@ -96,10 +96,8 @@ export default {
       ],
       miniVariant: false,
       right: true,
+      title: this.getTitle(),
       rightDrawer: false,
-      title: function() {
-        return "Character Manager";
-      },
       callMenuItem: function(menuItem) {
         console.log("Calling function " + menuItem.title);
         if (menuItem.func) {
@@ -108,7 +106,21 @@ export default {
       }
     };
   },
+  created: function() {
+    this.$eventHub.$on("nameChange", newName => {
+      this.subTitle = newName;
+      this.title = this.getTitle();
+    });
+  },
   methods: {
+    getTitle: function() {
+      if (!this.subTitle) {
+        console.log("Getting page title: " + "Character Manager");
+        return "Character Manager";
+      }
+      console.log("Getting page title: " + "Character Manager" + this.subTitle);
+      return "Character Manager - " + this.subTitle;
+    },
     newCharacter: function() {
       this.$eventHub.$emit("newCharacter");
     },

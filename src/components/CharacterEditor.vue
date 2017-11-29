@@ -100,9 +100,11 @@ export default {
     });
     this.$eventHub.$on("newCharacter", () => {
       this.character = new Character();
+      this.$eventHub.$emit("nameChange", this.character.name);
     });
     this.$eventHub.$on("randomCharacter", () => {
       this.character = new CharacterGenerator().generateRandomCharacter();
+      this.$eventHub.$emit("nameChange", this.character.name);
     });
     this.$eventHub.$on("saveToFile", () => {
       CharacterDao.exportJson(this.character);
@@ -111,6 +113,7 @@ export default {
       console.log("Loading from file.");
       document.getElementById("openFile").click();
     });
+    this.$eventHub.$emit("nameChange", this.character.name);
   },
   methods: {
     // This should moved into a component if there isn't one for it already.
@@ -134,6 +137,7 @@ export default {
           var loadedCharacter = new Character(JSON.parse(reader.result));
           console.log(loadedCharacter.name + " loaded.");
           editor.character = loadedCharacter;
+          editor.$eventHub.$emit("nameChange", loadedCharacter.name);
         };
       } else {
         throw "no file uploaded";
