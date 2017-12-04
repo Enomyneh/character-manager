@@ -12,6 +12,9 @@
         <v-btn small color="primary" dark @click="addSpell()">Add spell</v-btn>
         <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
     </div>
+    <div>
+          <v-btn  v-for="spellName in character.starredSpells" :key="'favSpell'+spellName" small color="secondary" dark @click="addSpell(spellName)">{{spellName}}</v-btn>
+    </div>
 
     <div v-for="(spell, index) in character.activeSpells" :key="'spell'+index">
         <v-layout row wrap class="input-group">                
@@ -23,10 +26,11 @@
               autocomplete
               @input="save()"
             ></v-select></v-flex>
-            <v-flex xs12 sm3 md6><v-text-field label="Spell notes" v-model="spell.notes" @input="save()"></v-text-field></v-flex>
+            <v-flex xs12 sm3 md5rint on demand><v-text-field label="Spell notes" v-model="spell.notes" @input="save()"></v-text-field></v-flex>
             <v-flex xs5 sm2 md1><v-switch label="On" v-model="spell.castOnMe" @change="save()"></v-switch></v-flex>
             <v-flex xs5 sm2 md1><v-switch label="By" v-model="spell.castByMe" @change="save()"></v-switch></v-flex>
             <v-flex xs2 sm2 md1><v-btn small fab color="primary" dark @click="removeSpell(index)"><i class="material-icons">delete</i></v-btn></v-flex>
+            <v-flex xs2 sm2 md1><v-btn small fab color="yellow" :outline="!character.isSpellStarred(spell.name)" @click="starSpell(index)"><i class="material-icons">star</i></v-btn></v-flex>
         </v-layout>
         <v-flex v-if="showDetails" xs12>
         <h5 class="text-center">Spell Description</h5>
@@ -46,13 +50,17 @@ export default {
   props: ["character", "noHeader"],
   data() {
     return {
-      showDetails : false
-      };
+      showDetails: false
+    };
   },
   computed: {
-      spellNames: function(){
-          return spells.map((spell) => {return spell.name}).sort();
-      }
+    spellNames: function() {
+      return spells
+        .map(spell => {
+          return spell.name;
+        })
+        .sort();
+    }
   },
   methods: {
     spellDetails: function(spellName) {
@@ -65,9 +73,10 @@ export default {
     save: function() {
       this.$eventHub.$emit("autoSave");
     },
-    addSpell: function() {
+    addSpell: function(spellName) {
+      if (!spellName) spellName = "";
       this.character.activeSpells.push({
-        name: "",
+        name: spellName,
         castOnMe: true,
         castByMe: true
       });
@@ -75,6 +84,18 @@ export default {
     },
     removeSpell: function(index) {
       this.character.activeSpells.splice(index, 1);
+      this.save();
+    },
+    starSpell: function(index) {
+      var spellName = this.character.activeSpells[index].name;
+      if (!this.character.isSpellStarred(spellName)) {
+        this.character.starredSpells.push(spellName);
+      } else {
+        this.character.starredSpells.splice(
+           this.character.starredSpells.indexOf(spellName),
+          1
+        );
+      }
       this.save();
     }
   },

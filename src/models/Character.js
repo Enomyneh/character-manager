@@ -37,6 +37,7 @@ var defaults = [
     { "key": "merits", "value": [] },
     { "key": "derangements", "value": [] },
     { "key": "activeSpells", "value": [] },
+    { "key": "starredSpells", "value": [] },
     { "key": "rotes", "value": [] },
     { "key": "inventory", "value": [] },
     { "key": "inventorySections", "value": [] },
@@ -177,6 +178,11 @@ export default class Character {
             this.gnosis = Math.min(10, Math.max(this.gnosis + amount, 1))
         );
     };
+
+    // Spells
+    isSpellStarred(spellName) {
+        return this.starredSpells.includes(spellName);
+    }
 
     maxActiveSpells() {
         return this.gnosis + 3;
