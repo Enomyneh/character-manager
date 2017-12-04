@@ -53,7 +53,10 @@ export default {
       this.$eventHub.$emit("autoSave");
     },
     addNotesSection: function() {
-      this.character.noteSections.push({ text: "New Note" });
+      this.character.noteSections.push({
+        title: "New Title",
+        text: "New Note"
+      });
       this.save();
     }
   },
