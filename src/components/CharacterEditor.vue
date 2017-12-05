@@ -113,6 +113,11 @@ export default {
       console.log("Loading from file.");
       document.getElementById("openFile").click();
     });
+    this.$eventHub.$on("loadFromBrowser", id => {
+      console.log("Loading from browser " + id + ".");
+      this.character = CharacterDao.loadLocally(id);
+      this.$eventHub.$emit("nameChange", this.character.name);
+    });
     this.$eventHub.$emit("nameChange", this.character.name);
   },
   methods: {

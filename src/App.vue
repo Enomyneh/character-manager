@@ -27,12 +27,10 @@
       -->
       <v-toolbar-title v-text="title"></v-toolbar-title>
       
-      <!--
       <v-spacer></v-spacer>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
+        <v-icon>face</v-icon>
       </v-btn>
-      -->
 
     </v-toolbar>
     <v-content>
@@ -42,7 +40,6 @@
         </v-slide-y-transition>
       </v-container>
     </v-content>
-    <!--
     <v-navigation-drawer
       temporary
       :right="right"
@@ -50,6 +47,10 @@
       fixed
     >
       <v-list>
+        <v-list-tile v-for="(character, index) in loadableCharacters" :key="'char'+index"
+          @click.native="loadFromBrowser(character.id)">
+          <v-list-tile-title>{{character.name}}</v-list-tile-title>
+        </v-list-tile>
         <v-list-tile @click.native="right = !right">
           <v-list-tile-action>
             <v-icon>compare_arrows</v-icon>
@@ -58,7 +59,6 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    -->
     <v-footer :fixed="fixed" app>
       <span>&copy; 2017 James Hurburgh</span>
     </v-footer>
@@ -66,11 +66,13 @@
 </template>
 
 <script>
+import CharacterDao from "./dataAccess/CharacterDao.js";
 import CharacterEditor from "./components/CharacterEditor.vue";
 
 export default {
   data() {
     return {
+      characterDao: CharacterDao,
       clipped: false,
       drawer: false,
       fixed: false,
@@ -112,6 +114,15 @@ export default {
       this.title = this.getTitle();
     });
   },
+  computed: {
+    loadableCharacters: function() {
+      var ids = this.characterDao.getLocalCharacterIds();
+      var chars = ids.map(id => {
+        return CharacterDao.loadLocally(id);
+      });
+      return chars;
+    }
+  },
   methods: {
     getTitle: function() {
       if (!this.subTitle) {
@@ -132,6 +143,9 @@ export default {
     },
     loadFromFile: function() {
       this.$eventHub.$emit("loadFromFile");
+    },
+    loadFromBrowser: function(id) {
+      this.$eventHub.$emit("loadFromBrowser", id);
     }
   },
   components: {
