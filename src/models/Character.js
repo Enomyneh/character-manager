@@ -139,7 +139,7 @@ export default class Character {
     carryingCapacity() {
 
         return this.strength * 25 + "lbs (" + this.strength * 11.4 + "kg)";
-    };
+    }
 
     // Willpower
     maxWillpowerDots() {
@@ -155,7 +155,7 @@ export default class Character {
         );
     }
     adjustWillpowerDots(amount) {
-        this.spentWillpowerDots = Math.min(this.maxWillpowerDots(), Math.max(this.spentWillpowerDots + amount, 0))
+        this.spentWillpowerDots = Math.min(this.maxWillpowerDots(), Math.max(this.spentWillpowerDots + amount, 0));
     }
 
     // Mana
@@ -165,20 +165,20 @@ export default class Character {
 
     maxManaPerTurn() {
         return this.getGnosisData(this.gnosis).maxManaPerTurn;
-    };
+    }
 
     adjustMana(amount) {
         this.logUpdate("mana", () =>
             this.mana = Math.min(this.maxMana(), Math.max(this.mana + amount, 0))
         );
-    };
+    }
 
     // Gnosis
     adjustGnosis(amount) {
         this.logUpdate("gnosis", () =>
             this.gnosis = Math.min(10, Math.max(this.gnosis + amount, 1))
         );
-    };
+    }
 
     // Spells
     isSpellStarred(spellName) {
