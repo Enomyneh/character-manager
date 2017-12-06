@@ -1,19 +1,34 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <div>Edit mode: {{character.editMode}}</div>
+  <v-container fluid grid-list-md>
+    <v-layout flex>
+      <v-flex xs12>
+        <v-card style="height:300px">
+          <v-card-text>
+
+            <v-flex absolute right>
+              <v-btn 
+                small fab class="yellow blue--text"
+                text-color--white
+                        :outline="!character.starred" 
+                @click="toggleStar">
+                <i class="material-icons">star</i>
+              </v-btn>
+            <v-btn small fab color="primary" dark @click="deleteCharacter(character.id)">
+              <i class="material-icons">delete</i>
+            </v-btn>
+            </v-flex>
+
+            <div>Edit mode: {{character.editMode}}</div>
+          </v-card-text>
+        </v-card>
+      </v-flex> 
+    </v-layout>
 
     <div>Favourite Character
-      <v-flex xs2 sm2 md1>
-        <v-btn 
-          small fab color="yellow" 
-          :outline="!character.starred" 
-          @click="toggleStar">
-          <i class="material-icons">star</i>
-        </v-btn>
-      </v-flex>
     </div>
 
     <div>Delete Character</div>
+    
 
   </v-container>
 </template>
