@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Wisdom</h4>
+    <h4 v-if="!noHeader" class="text-center">Wisdom</h4>
         <v-layout row wrap v-for="n in 10" :key="'wisdom'+n">
             <v-flex xs11 class="mt-0 mb-0 pt-0 pb-0">
                 <v-text-field 
@@ -25,13 +25,13 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   },
   methods: {
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     wiseAs: function(wisdom) {
       return this.character.wisdom >= wisdom;

@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Skills</h4>
+    <h4 v-if="!noHeader" class="text-center">Skills</h4>
         <v-btn small color="primary" dark @click="toggleAllSpecialties()">View specialties</v-btn>
     <v-layout row wrap>
     <v-flex xs12 sm4 v-for="category in categories" :key="category">
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     getSkillsByCategory: function(category) {
       return skills.filter(skill => skill.category == category);
@@ -69,7 +69,7 @@ export default {
       this.showAllSpecialities = !this.showAllSpecialities;
     }
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {
       categories: ["Mental", "Physical", "Social"],

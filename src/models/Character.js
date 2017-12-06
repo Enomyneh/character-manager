@@ -17,8 +17,10 @@ var defaults = [
     { "key": "vice", "value": "" },
 
     { "key": "notes", "value": "" },
+    { "key": "noteSections", "value": [] },
     { "key": "logs", "value": [] },
     { "key": "editMode", "value": "free" },
+    { "key": "starred", "value": false },
 
     { "key": "size", "value": 5 },
     { "key": "gnosis", "value": 1 },
@@ -36,6 +38,7 @@ var defaults = [
     { "key": "merits", "value": [] },
     { "key": "derangements", "value": [] },
     { "key": "activeSpells", "value": [] },
+    { "key": "starredSpells", "value": [] },
     { "key": "rotes", "value": [] },
     { "key": "inventory", "value": [] },
     { "key": "inventorySections", "value": [] },
@@ -44,17 +47,17 @@ var defaults = [
 ];
 
 // Skills
-skills.forEach(function(skill) {
+skills.forEach(function (skill) {
     defaults.push({ "key": skill.name.toLowerCase(), "value": 0 });
 }, this);
 
 // Attributes
-attributes.forEach(function(attribute) {
+attributes.forEach(function (attribute) {
     defaults.push({ "key": attribute.name.toLowerCase(), "value": 1 });
 }, this);
 
 // Arcana
-arcana.forEach(function(arcanum) {
+arcana.forEach(function (arcanum) {
     defaults.push({ "key": arcanum.name.toLowerCase(), "value": 0 });
 }, this);
 
@@ -76,7 +79,7 @@ export default class Character {
         }
 
         // Ensure all fields are intialised
-        defaults.forEach(function(de) {
+        defaults.forEach(function (de) {
             this.initialiseField(de.key, de.value, newCharacter);
         }, this);
 
@@ -84,6 +87,11 @@ export default class Character {
         this.initialiseField('willpower', this.maxWillpower(), newCharacter);
         this.initialiseField('mana', this.wisdom, newCharacter);
 
+        // Check for historic values
+        if (this.notes) {
+            this.noteSections.push({ "title": "Migrated text", "text": this.notes });
+            this.notes = undefined;
+        }
     }
 
     initialiseField(fieldName, defaultValue, newCharacter) {
@@ -131,7 +139,7 @@ export default class Character {
     carryingCapacity() {
 
         return this.strength * 25 + "lbs (" + this.strength * 11.4 + "kg)";
-    };
+    }
 
     // Willpower
     maxWillpowerDots() {
@@ -147,7 +155,7 @@ export default class Character {
         );
     }
     adjustWillpowerDots(amount) {
-        this.spentWillpowerDots = Math.min(this.maxWillpowerDots(), Math.max(this.spentWillpowerDots + amount, 0))
+        this.spentWillpowerDots = Math.min(this.maxWillpowerDots(), Math.max(this.spentWillpowerDots + amount, 0));
     }
 
     // Mana
@@ -157,20 +165,25 @@ export default class Character {
 
     maxManaPerTurn() {
         return this.getGnosisData(this.gnosis).maxManaPerTurn;
-    };
+    }
 
     adjustMana(amount) {
         this.logUpdate("mana", () =>
             this.mana = Math.min(this.maxMana(), Math.max(this.mana + amount, 0))
         );
-    };
+    }
 
     // Gnosis
     adjustGnosis(amount) {
         this.logUpdate("gnosis", () =>
             this.gnosis = Math.min(10, Math.max(this.gnosis + amount, 1))
         );
-    };
+    }
+
+    // Spells
+    isSpellStarred(spellName) {
+        return this.starredSpells.includes(spellName);
+    }
 
     maxActiveSpells() {
         return this.gnosis + 3;

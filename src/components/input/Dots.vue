@@ -1,7 +1,6 @@
 <template>
     <div>
         <i class="material-icons red--text" @click="$emit('decrement')">remove_circle_outline</i>
-        <!-- <img v-for="n in filled()" :key="'f'+n" src="/public/dot-filled.png"><img v-for="n in unfilled()" :key="'u'+n" src="/public/dot-empty.png"> -->
         <i v-for="n in filled()" :key="'f'+n" class="material-icons">lens</i><i v-for="n in unfilled()" :key="'u'+n" class="material-icons">panorama_fish_eye</i>
         <i class="material-icons green--text" @click="$emit('increment')">add_circle</i>
     </div>

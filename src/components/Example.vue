@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-              <h4 class="text-center">Section</h4>
+              <h4 v-if="!noHeader" class="text-center">Section</h4>
         <Dots :min="1" :max="10" v-model="character.gnosis"
             @increment="incrementValue()"
             @decrement="decrementValue()"
@@ -15,7 +15,7 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   },
@@ -24,10 +24,10 @@ export default {
       return 10;
     },
     incrementValue: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     decrementValue: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     }
   },
   components: {

@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-              <h4 class="text-center">Mana</h4>
+              <h4 v-if="!noHeader" class="text-center">Mana</h4>
         <div>
             <img v-for="n in character.mana" src="/public/box-stroke.png" :key="'mana'+n"><img v-for="n in unusedSpace()" src="/public/box-empty-grey.png" :key="'unusedManaSpace'+n">
         </div>
@@ -21,7 +21,7 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   },
@@ -31,11 +31,11 @@ export default {
     },
     incrementValue: function() {
       this.character.adjustMana(1);
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     decrementValue: function() {
         this.character.adjustMana(-1);
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     }
   },
   components: {

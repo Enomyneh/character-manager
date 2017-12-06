@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md text-xs-center>
-    <h4 class="text-center">Health</h4>
+    <h4 v-if="!noHeader" class="text-center">Health</h4>
         <div v-if="character.healthRollPenalty() < 0">
             Roll penalty: <strong>{{character.healthRollPenalty()}}</strong>
         </div>
@@ -32,13 +32,13 @@ export default {
   model: {
     prop: "character"
   },
-  props: ["character"],
+  props: ["character", "noHeader"],
   data() {
     return {};
   },
   methods: {
     save: function() {
-      this.$eventHub.$emit("saveCharacterToFile");
+      this.$eventHub.$emit("autoSave");
     },
     undamaged: function() {
       return Math.max(
