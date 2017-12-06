@@ -2,34 +2,32 @@
   <v-container fluid grid-list-md>
     <v-layout flex>
       <v-flex xs12>
-        <v-card style="height:300px">
+        <v-card>
+        <v-card-title primary-title>
+          <h4 class="headline mb-0">Settings</h4>
+        </v-card-title>
           <v-card-text>
 
             <v-flex absolute right>
+            </v-flex>
+
+            <div>Edit mode: {{character.editMode}}</div>
+          </v-card-text>
+          <v-card-actions>
               <v-btn 
-                small fab class="yellow blue--text"
+                small class="yellow blue--text"
                 text-color--white
                         :outline="!character.starred" 
                 @click="toggleStar">
                 <i class="material-icons">star</i>
               </v-btn>
-            <v-btn small fab color="primary" dark @click="deleteCharacter(character.id)">
+            <v-btn small color="primary" dark @click="deleteCharacter(character.id)">
               <i class="material-icons">delete</i>
             </v-btn>
-            </v-flex>
-
-            <div>Edit mode: {{character.editMode}}</div>
-          </v-card-text>
+          </v-card-actions>
         </v-card>
       </v-flex> 
-    </v-layout>
-
-    <div>Favourite Character
-    </div>
-
-    <div>Delete Character</div>
-    
-
+    </v-layout> 
   </v-container>
 </template>
 

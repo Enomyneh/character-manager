@@ -1,35 +1,56 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <h4 v-if="!noHeader" class="text-center">Merits</h4>
-    <v-btn small color="primary" dark @click="addMerit()">Add merit</v-btn>
-    <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
-    <v-layout row wrap align-center v-for="(merit, index) in character.merits" :key="'merit'+index">
-        <v-flex xs12 sm3>
-            <v-select
-              v-bind:items="meritNames"
-              v-model="merit.name"
-              label="Merit"
-              autocomplete
-              @input="updateMerit(index, merit)"
-            ></v-select>
-        </v-flex>
-        <v-flex xs12 sm4>
-            <v-text-field label="Merit notes" v-model="merit.notes" @input="updateMerit(index, merit)"></v-text-field>
-        </v-flex>
-        <v-flex xs9 sm3>
-            <Dots :min="0" :max="5" v-model="merit.dots"
-                @increment="incrementMeritDots(index)"
-                @decrement="decrementMeritDots(index)"
-            >
-            </Dots>
-        </v-flex>
-        <v-flex xs3 sm2>
-            <v-btn small fab color="primary" dark @click="removeMerit(index)"><i class="material-icons">delete</i></v-btn>
-        </v-flex>
-        <v-flex v-if="showDetails" xs12>
-          {{meritDetails(merit.name)}}
-        </v-flex>
-    </v-layout>
+  <v-container fluid grid-list-md>
+    <v-layout flex>
+      <v-flex xs12>
+        <v-card>
+        <v-card-title v-if="!noHeader" primary-title>
+          <h4 class="headline mb-0">Merits</h4>
+        </v-card-title>
+          <v-card-text>
+            <v-expansion-panel expand>
+              <v-expansion-panel-content v-for="(merit, index) in character.merits" :key="'merit'+index">
+                <div slot="header">{{merit.name}}</div>
+                <v-card>
+                  <v-card-text>
+                    <v-layout row wrap align-center>
+                      <v-flex xs12 sm3>
+                        <v-select
+                          v-bind:items="meritNames"
+                          v-model="merit.name"
+                          label="Merit"
+                          autocomplete
+                          @input="updateMerit(index, merit)"
+                        ></v-select>
+                      </v-flex>
+                      <v-flex xs12 sm4>
+                          <v-text-field label="Merit notes" v-model="merit.notes" @input="updateMerit(index, merit)"></v-text-field>
+                      </v-flex>
+                      <v-flex xs9 sm3>
+                          <Dots :min="0" :max="5" v-model="merit.dots"
+                              @increment="incrementMeritDots(index)"
+                              @decrement="decrementMeritDots(index)"
+                          >
+                          </Dots>
+                      </v-flex>
+                      <v-flex xs3 sm2>
+                          <v-btn small fab color="primary" dark @click="removeMerit(index)"><i class="material-icons">delete</i></v-btn>
+                      </v-flex>
+                      <v-flex v-if="showDetails" xs12>
+                        {{meritDetails(merit.name)}}
+                      </v-flex>
+                    </v-layout>
+                  </v-card-text>
+                </v-card>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn small flat color="primary" dark @click="addMerit()">Add merit</v-btn>
+            <v-btn small flat color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex> 
+    </v-layout> 
   </v-container>
 </template>
 
