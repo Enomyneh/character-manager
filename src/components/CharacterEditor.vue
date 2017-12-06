@@ -1,7 +1,7 @@
 <template>
   <v-tabs v-model="activeTab">
-      <v-tabs-bar class="black" dark>
-        
+      <v-tabs-bar class="black" dark>        
+        <v-tabs-item href="#settings"><v-icon>settings</v-icon></v-tabs-item>
         <v-tabs-item href="#fullSheet">Full Sheet</v-tabs-item>
         <v-tabs-item
           v-for="(section, index) in sections"
@@ -14,6 +14,11 @@
         <v-tabs-slider color="red"></v-tabs-slider>
       </v-tabs-bar>
       <v-tabs-items>
+        <v-tabs-content id="settings">
+          <v-card flat>
+            <CharacterSettings v-model="character"></CharacterSettings>
+          </v-card>
+        </v-tabs-content>
         <v-tabs-content id="fullSheet">
           <v-card v-for="(section, index) in sections"
           :key="'tab' + section.name + index"
@@ -43,6 +48,8 @@ import CharacterGenerator from "../models/CharacterGenerator.js";
 import Character from "../models/Character.js";
 
 // Components
+import CharacterSettings from "./CharacterSettings.vue";
+
 import Personal from "./Personal.vue";
 import Attributes from "./Attributes.vue";
 import Skills from "./Skills.vue";
@@ -164,7 +171,8 @@ export default {
     Inventory: Inventory,
     Notes: Notes,
     Rotes: Rotes,
-    Spells: Spells
+    Spells: Spells,
+    CharacterSettings : CharacterSettings
   }
 };
 </script>

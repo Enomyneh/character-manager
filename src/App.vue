@@ -5,18 +5,45 @@
         <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile avatar value="true" v-for="(item, i) in items" :key="i" @click="callMenuItem(item)">
+        <v-list-tile>
           <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
+            <v-icon>star</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
+            <v-list-tile-title>Favourites</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+                <v-list-tile  avatar value="true" v-for="(character, index) in loadableFavouriteCharacters" :key="'char'+index"
+          @click="loadFromBrowser(character.id)">
+          <v-list-tile-action>
+            <v-icon>face</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="character.name"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-spacer></v-spacer>
+        <v-list-tile>
+          <v-list-tile-content>
+            <v-list-tile-title>Non-Favourites</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile  avatar value="true" v-for="(character, index) in loadableNonfavouriteCharacters" :key="'char'+index"
+          @click="loadFromBrowser(character.id)">
+          <v-list-tile-action>
+            <v-icon>face</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="character.name"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed app :clipped-left="clipped">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-btn icon @click.stop="drawer = !drawer">
+        <v-icon>folder_shared</v-icon>
+      </v-btn>
 <!--
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>web</v-icon>
@@ -29,7 +56,7 @@
       
       <v-spacer></v-spacer>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>face</v-icon>
+        <v-icon>menu</v-icon>
       </v-btn>
 
     </v-toolbar>
@@ -47,16 +74,15 @@
       fixed
     >
       <v-list>
-        <v-list-tile v-for="(character, index) in loadableCharacters" :key="'char'+index"
-          @click.native="loadFromBrowser(character.id)">
-          <v-list-tile-title>{{character.name}}</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click.native="right = !right">
+        <v-list-tile avatar value="true" v-for="(item, i) in items" :key="i" @click="callMenuItem(item)">
           <v-list-tile-action>
-            <v-icon>compare_arrows</v-icon>
+            <v-icon v-html="item.icon"></v-icon>
           </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="item.title"></v-list-tile-title>
+          </v-list-tile-content>
         </v-list-tile>
+
       </v-list>
     </v-navigation-drawer>
     <v-footer :fixed="fixed" app>
@@ -115,15 +141,21 @@ export default {
     });
   },
   computed: {
+    loadableFavouriteCharacters: function() {
+      return this.loadableCharacters().filter(char => char.starred);
+    },
+    loadableNonfavouriteCharacters: function() {
+      return this.loadableCharacters().filter(char => !char.starred);
+    }
+  },
+  methods: {
     loadableCharacters: function() {
-      var ids = this.characterDao.getLocalCharacterIds();
+      var ids = CharacterDao.getLocalCharacterIds();
       var chars = ids.map(id => {
         return CharacterDao.loadLocally(id);
       });
       return chars;
-    }
-  },
-  methods: {
+    },
     getTitle: function() {
       if (!this.subTitle) {
         console.log("Getting page title: " + "Character Manager");

@@ -20,6 +20,7 @@ var defaults = [
     { "key": "noteSections", "value": [] },
     { "key": "logs", "value": [] },
     { "key": "editMode", "value": "free" },
+    { "key": "starred", "value": false },
 
     { "key": "size", "value": 5 },
     { "key": "gnosis", "value": 1 },
