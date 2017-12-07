@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-md>
+  <v-container fluid grid-list-md text-xs-center>
     <v-layout flex>
       <v-flex xs12>
         <v-card>
@@ -15,16 +15,6 @@
         </v-card>
       </v-flex> 
     </v-layout> 
-  </v-container>
-</template>
-
-<template>
-  <v-container grid-list-md text-xs-center>
-              <h4 v-if="!noHeader" class="text-center">Section</h4>
-        <Dots :min="1" :max="10" v-model="character.gnosis"
-            @increment="incrementValue()"
-            @decrement="decrementValue()"
-            ></Dots>
   </v-container>
 </template>
 

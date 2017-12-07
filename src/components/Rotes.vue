@@ -1,51 +1,61 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <h4 v-if="!noHeader" class="text-center">Rotes</h4>
-    <div>
-      <v-btn small color="primary" dark @click="addRote()">Add rote</v-btn>
-      <v-btn small color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
-    </div>
-    <v-layout row wrap v-for="(rote, index) in character.rotes" :key="'rote'+index">
-      <v-flex xs12 sm5 md3><v-select
-        :items="spellNames"
-        v-model="rote.spellName"
-        label="Spell name"
-        autocomplete
-        @input="save()"
-      ></v-select></v-flex>
-      <v-flex xs9 sm5 md2><v-text-field label="Style" hint="Order / Seer / Banisher" v-model="rote.style" @input="save()"></v-text-field></v-flex>
-      <v-flex xs6 sm2 md1>
-        <h5 class="text-center">Dice Pool</h5>
-        {{dicePoolText(rote)}}
-      </v-flex>
-      <v-flex xs6 sm3 md1><v-select
-        :items="arcana"
-        v-model="rote.dicePoolArcana"
-        label="Arcana"
-        autocomplete
-        @input="save()"
-      ></v-select></v-flex>
-      <v-flex xs6 sm3 md2><v-select
-        :items="attributes"
-        v-model="rote.dicePoolAttribute"
-        label="Attribute"
-        autocomplete
-        @input="save()"
-      ></v-select></v-flex>
-      <v-flex xs6 sm3 md2><v-select
-        :items="skills"
-        v-model="rote.dicePoolSkill"
-        label="Skill"
-        autocomplete
-        @input="save()"
-      ></v-select></v-flex>
-      
-      <v-flex xs3 sm3 md1><v-btn small fab color="primary" dark @click="removeRote(index)"><i class="material-icons">delete</i></v-btn></v-flex>
-      <v-flex v-if="showDetails" xs12>
-        <h5 class="text-center">Spell Description</h5>
-        {{spellDetails(rote.spellName)}}
-      </v-flex>
-    </v-layout>
+  <v-container fluid grid-list-md text-xs-center>
+    <v-layout flex>
+      <v-flex xs12>
+        <v-card>
+        <v-card-title v-if="!noHeader" primary-title>
+          <h4 class="headline mb-0">Rotes</h4>
+        </v-card-title>
+          <v-card-text>
+            <v-layout row wrap v-for="(rote, index) in character.rotes" :key="'rote'+index">
+              <v-flex xs12 sm5 md3><v-select
+                :items="spellNames"
+                v-model="rote.spellName"
+                label="Spell name"
+                autocomplete
+                @input="save()"
+              ></v-select></v-flex>
+              <v-flex xs9 sm5 md2><v-text-field label="Style" hint="Order / Seer / Banisher" v-model="rote.style" @input="save()"></v-text-field></v-flex>
+              <v-flex xs6 sm2 md1>
+                <h5 class="text-center">Dice Pool</h5>
+                {{dicePoolText(rote)}}
+              </v-flex>
+              <v-flex xs6 sm3 md1><v-select
+                :items="arcana"
+                v-model="rote.dicePoolArcana"
+                label="Arcana"
+                autocomplete
+                @input="save()"
+              ></v-select></v-flex>
+              <v-flex xs6 sm3 md2><v-select
+                :items="attributes"
+                v-model="rote.dicePoolAttribute"
+                label="Attribute"
+                autocomplete
+                @input="save()"
+              ></v-select></v-flex>
+              <v-flex xs6 sm3 md2><v-select
+                :items="skills"
+                v-model="rote.dicePoolSkill"
+                label="Skill"
+                autocomplete
+                @input="save()"
+              ></v-select></v-flex>
+              
+              <v-flex xs3 sm3 md1><v-btn small fab color="primary" dark @click="removeRote(index)"><i class="material-icons">delete</i></v-btn></v-flex>
+              <v-flex v-if="showDetails" xs12>
+                <h5 class="text-center">Spell Description</h5>
+                {{spellDetails(rote.spellName)}}
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn small flat color="primary" dark @click="addRote()">Add rote</v-btn>
+            <v-btn small flat color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex> 
+    </v-layout> 
   </v-container>
 </template>
 

@@ -1,17 +1,22 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-              <h4 v-if="!noHeader" class="text-center">Gnosis</h4>
-        <!-- <div>
-            <img v-for="n in character.gnosis" src=".\img\dot-filled.png" :key="'filled'+n"><img v-for="n in unusedSpace()" src=".\img\dot-empty.png":key="'unfilled'+n">
-        </div>
-        <div>
-            <img src=".\img\delete.png" @click="character.adjustGnosis(-1)" />
-            <img src=".\img\add.png" @click="character.adjustGnosis(1)" />
-        </div> -->
-        <Dots :min="1" :max="10" v-model="character.gnosis"
-            @increment="incrementValue()"
-            @decrement="decrementValue()"
+  <v-container fluid grid-list-md text-xs-center>
+    <v-layout flex>
+      <v-flex xs12>
+        <v-card>
+        <v-card-title v-if="!noHeader" primary-title>
+          <h4 class="headline mb-0">Gnosis</h4>
+        </v-card-title>
+          <v-card-text>
+            <Dots :min="1" :max="10" v-model="character.gnosis"
+              @increment="incrementValue()"
+              @decrement="decrementValue()"
             ></Dots>
+          </v-card-text>
+          <v-card-actions>
+          </v-card-actions>
+        </v-card>
+      </v-flex> 
+    </v-layout> 
   </v-container>
 </template>
 

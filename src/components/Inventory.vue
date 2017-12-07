@@ -1,18 +1,29 @@
 <template>
-  <v-container grid-list-md text-xs-center>
-    <h4 v-if="!noHeader" class="text-center">Inventory</h4>
-    <div>
-        Maximum carry of
-        <strong>{{character.carryingCapacity()}}</strong>.
-    </div>    
-    <v-btn small color="primary" dark @click="addItem()">Add item</v-btn>
-
-    <v-layout row wrap v-for="(item, index) in character.inventory" :key="index">
-        <v-text-field label="Item description" v-model="item.name" @input="updateItem(index, item)"></v-text-field>
-            Carried:
-            <input type="checkbox" v-model="item.carried" />
-        <v-btn small fab color="primary" dark @click="removeItem(index)"><i class="material-icons">delete</i></v-btn>
-    </v-layout>
+  <v-container fluid grid-list-md text-xs-center>
+    <v-layout flex>
+      <v-flex xs12>
+        <v-card>
+        <v-card-title v-if="!noHeader" primary-title>
+          <h4 class="headline mb-0">Inventory</h4>
+        </v-card-title>
+          <v-card-text>
+            <div>
+              Maximum carry of
+              <strong>{{character.carryingCapacity()}}</strong>.
+            </div>    
+            <v-layout row wrap v-for="(item, index) in character.inventory" :key="index">
+                <v-text-field label="Item description" v-model="item.name" @input="updateItem(index, item)"></v-text-field>
+                    Carried:
+                    <input type="checkbox" v-model="item.carried" />
+                <v-btn small fab color="primary" dark @click="removeItem(index)"><i class="material-icons">delete</i></v-btn>
+            </v-layout>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn small flat color="primary" dark @click="addItem()">Add item</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex> 
+    </v-layout> 
   </v-container>
 </template>
 

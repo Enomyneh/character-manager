@@ -15,13 +15,13 @@
           </v-card-text>
           <v-card-actions>
               <v-btn 
-                small class="yellow blue--text"
+                class="yellow blue--text"
                 text-color--white
                         :outline="!character.starred" 
                 @click="toggleStar">
                 <i class="material-icons">star</i>
               </v-btn>
-            <v-btn small color="primary" dark @click="deleteCharacter(character.id)">
+            <v-btn color="primary" dark @click="deleteCharacter(character.id)">
               <i class="material-icons">delete</i>
             </v-btn>
           </v-card-actions>

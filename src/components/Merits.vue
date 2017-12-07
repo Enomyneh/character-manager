@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-md>
+  <v-container fluid grid-list-md text-xs-center>
     <v-layout flex>
       <v-flex xs12>
         <v-card>
@@ -33,9 +33,10 @@
                           </Dots>
                       </v-flex>
                       <v-flex xs3 sm2>
-                          <v-btn small fab color="primary" dark @click="removeMerit(index)"><i class="material-icons">delete</i></v-btn>
+                          <v-btn flat color="primary" dark @click="removeMerit(index)"><i class="material-icons">delete</i></v-btn>
                       </v-flex>
-                      <v-flex v-if="showDetails" xs12>
+                      <!-- <v-flex v-if="showDetails" xs12> -->
+                      <v-flex xs12>
                         {{meritDetails(merit.name)}}
                       </v-flex>
                     </v-layout>
@@ -58,7 +59,11 @@
 import merits from "../data/merits.json";
 import Dots from "./input/Dots.vue";
 
-var meritNames = merits.map((merit) => {return merit.name}).sort();
+var meritNames = merits
+  .map(merit => {
+    return merit.name;
+  })
+  .sort();
 
 export default {
   model: {
@@ -68,15 +73,23 @@ export default {
   data() {
     return {
       meritNames: meritNames,
-      showDetails : false
+      showDetails: false
     };
   },
   methods: {
-    meritDetails: function(meritName){
+    meritDetails: function(meritName) {
       var merit = merits.filter(merit => merit.name == meritName)[0];
-      if(!merit) return "Unable to find merit details for '" + meritName + "'.";
-      
-      return "Effect: " + merit.effect + " Levels: " + merit.levels + " Prerequistes: " + merit.prerequistes;
+      if (!merit)
+        return "Unable to find merit details for '" + meritName + "'.";
+
+      return (
+        "Effect: " +
+        merit.effect +
+        " Levels: " +
+        merit.levels +
+        " Prerequistes: " +
+        merit.prerequistes
+      );
     },
     save: function() {
       this.$eventHub.$emit("autoSave");
