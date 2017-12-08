@@ -31,6 +31,18 @@ export default {
         return new Character(store.get(id));
     },
 
+    deleteCharacter(id) {
+        // store.clear(id);
+
+        // Update the list of stored characters
+        var characterIds = this.getLocalCharacterIds();
+        if (characterIds.includes(id)) {
+            console.log("Deleting character with id: " + id);
+            characterIds.splice(characterIds.indexOf(id), 1);
+        }
+        store.set("characters", characterIds);
+    },
+
     getLocalCharacterIds() {
         var characters = store.get("characters");
         if (!characters) return [];

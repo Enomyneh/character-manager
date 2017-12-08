@@ -46,6 +46,10 @@ export default {
     save: function() {
       this.$eventHub.$emit("autoSave");
     },
+    deleteCharacter: function(id) {
+                  console.log("Deleting character with id: " + id);
+CharacterDao.deleteCharacter(id);
+    },
     toggleStar: function() {
       this.character.starred = !this.character.starred;
       this.save();
