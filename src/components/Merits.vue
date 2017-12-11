@@ -47,7 +47,6 @@
           </v-card-text>
           <v-card-actions>
             <v-btn small flat color="primary" dark @click="addMerit()">Add merit</v-btn>
-            <v-btn small flat color="primary" dark @click="showDetails = !showDetails">Toggle details</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex> 
