@@ -11,11 +11,17 @@
               Maximum carry of
               <strong>{{character.carryingCapacity()}}</strong>.
             </div>    
-            <v-layout row wrap v-for="(item, index) in character.inventory" :key="index">
-                <v-text-field label="Item description" v-model="item.name" @input="updateItem(index, item)"></v-text-field>
-                    Carried:
-                    <input type="checkbox" v-model="item.carried" />
-                <v-btn small fab color="primary" dark @click="removeItem(index)"><i class="material-icons">delete</i></v-btn>
+            <v-layout row wrap v-for="(item, index) in character.inventory" :key="index" align-center>
+                <v-flex xs10>
+                  <v-text-field label="Item description" v-model="item.name" @input="updateItem(index, item)"></v-text-field>
+                </v-flex>
+                <v-flex xs1>
+                  Carried:
+                  <input type="checkbox" v-model="item.carried"/>
+                </v-flex>
+                <v-flex xs1>
+                  <v-btn small flat color="primary" dark @click="removeItem(index)"><i class="material-icons">delete</i></v-btn>
+                </v-flex>
             </v-layout>
           </v-card-text>
           <v-card-actions>
