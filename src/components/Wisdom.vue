@@ -7,18 +7,22 @@
           <h4 class="headline mb-0">Wisdom</h4>
         </v-card-title>
           <v-card-text>
-            <v-layout row wrap v-for="n in 10" :key="'wisdom'+n">
-                <v-flex xs11 class="mt-0 mb-0 pt-0 pb-0">
+            <v-layout row wrap align-center v-for="n in 10" :key="'wisdom'+n">
+
+
+                <v-flex xs1 class="title text-center" fill-height>
+                  {{11-n+''}}
+                </v-flex>
+                <v-flex xs10 class="">
                     <v-text-field 
                     @input="save" 
                     label="Derangement" 
                     v-model="character.derangements[11-n]"
-                        single-line
-                        :prefix="11-n+''"></v-text-field>
+                        single-line></v-text-field>
                 </v-flex>
-                <v-flex xs1 class="mt-0 mb-0 pt-0 pb-0" @click="setWisdom(11-n)">
-                    <img v-if="wiseAs(11-n)" src="/public/dot-filled.png">
-                    <img v-if="!wiseAs(11-n)" src="/public/dot-empty.png">
+                <v-flex xs1 class="" @click="setWisdom(11-n)">
+                  <v-icon v-if="wiseAs(11-n)">lens</v-icon> 
+                  <v-icon v-if="!wiseAs(11-n)">panorama_fish_eye</v-icon>
                 </v-flex>
             </v-layout>
           </v-card-text>
