@@ -25,22 +25,20 @@
             <div>
                 <span>Casting penalty: <strong>{{character.spellAccumulationPenalty()}}</strong>.</span>
             </div>
-            <div>
-                  <v-btn  v-for="spellName in character.starredSpells" :key="'favSpell'+spellName" small color="secondary" dark @click="addSpell(spellName)">{{spellName}}</v-btn>
-            </div>
             </div>
             <v-expansion-panel expand>
               <v-expansion-panel-content v-for="(spell, index) in character.activeSpells" :key="'spell'+index">
-                <div slot="header">{{spell.name}}
+                <div slot="header"><strong>{{spell.name}}</strong>
                   <span v-if="spell.notes"> - <em>{{spell.notes}}</em></span>
                   
                   <span v-if="spell.potency"> P <strong>{{spell.potency}}</strong></span>
                   <span v-if="spell.duration"> D <strong>{{spell.duration}}</strong></span>
                   <span v-if="spell.targets"> T <strong>{{spell.targets}}</strong></span>
                   <span v-if="spell.aoe"> AoE <strong>{{spell.aoe}}</strong></span>
-                  
-                  <v-icon v-if="spell.castByMe" color="blue">flare</v-icon><v-icon v-if="!spell.castByMe" color="gray">flare</v-icon>
-                  <v-icon v-if="spell.castOnMe" color="blue">person</v-icon><v-icon v-if="!spell.castOnMe" color="gray">person_outline</v-icon>
+                  <div style="float:right;">
+                    <v-icon v-if="spell.castByMe" color="blue">flare</v-icon><v-icon v-if="!spell.castByMe" color="gray">flare</v-icon>
+                    <v-icon v-if="spell.castOnMe" color="blue">person</v-icon><v-icon v-if="!spell.castOnMe" color="gray">person_outline</v-icon>
+                  </div>
                   </div>
                 
                 <v-card>
@@ -65,7 +63,10 @@
                         <v-flex xs6 sm3 md1><v-switch label="By me" v-model="spell.castByMe" @change="save()"></v-switch></v-flex>
 
                         <v-flex xs6 sm3 md1><v-btn flat color="primary" dark @click="removeSpell(index)"><i class="material-icons">delete</i></v-btn></v-flex>
-                        <v-flex xs6 sm3 md1><v-btn small flat color="yellow" :outline="!character.isSpellStarred(spell.name)" @click="starSpell(index)"><i class="material-icons">star</i></v-btn></v-flex>
+                        <v-flex xs6 sm3 md1>
+                          <v-btn v-if="!character.isSpellStarred(spell.name)" small flat color="grey" @click="starSpell(index)"><v-icon>favorite_border</v-icon></v-btn>
+                          <v-btn v-if="character.isSpellStarred(spell.name)" small flat color="red" @click="starSpell(index)"><v-icon>favorite</v-icon></v-btn>
+                        </v-flex>
                     </v-layout>
                     <v-flex xs12>
                     <h5 class="text-center">Spell Description</h5>
@@ -78,6 +79,7 @@
           </v-card-text>
           <v-card-actions>
             <v-btn small flat color="primary" dark @click="addSpell()">Add spell</v-btn>
+            <v-btn  v-for="spellName in character.starredSpells" :key="'favSpell'+spellName" small color="secondary" dark @click="addSpell(spellName)">{{spellName}}</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex> 
