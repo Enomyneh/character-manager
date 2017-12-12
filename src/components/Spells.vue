@@ -32,12 +32,16 @@
             <v-expansion-panel expand>
               <v-expansion-panel-content v-for="(spell, index) in character.activeSpells" :key="'spell'+index">
                 <div slot="header">{{spell.name}}
+                  <span v-if="spell.notes"> - <em>{{spell.notes}}</em></span>
+                  
+                  <span v-if="spell.potency"> P <strong>{{spell.potency}}</strong></span>
+                  <span v-if="spell.duration"> D <strong>{{spell.duration}}</strong></span>
+                  <span v-if="spell.targets"> T <strong>{{spell.targets}}</strong></span>
+                  <span v-if="spell.aoe"> AoE <strong>{{spell.aoe}}</strong></span>
+                  
                   <v-icon v-if="spell.castByMe" color="blue">flare</v-icon><v-icon v-if="!spell.castByMe" color="gray">flare</v-icon>
                   <v-icon v-if="spell.castOnMe" color="blue">person</v-icon><v-icon v-if="!spell.castOnMe" color="gray">person_outline</v-icon>
-                  <span v-if="spell.potency">P <strong>{{spell.potency}}</strong></span>
-                  <span v-if="spell.duration">D <strong>{{spell.duration}}</strong></span>
-                  <span v-if="spell.aoe">AoE <strong>{{spell.aoe}}</strong></span>
-                </div>
+                  </div>
                 
                 <v-card>
                   <v-card-text>
