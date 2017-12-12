@@ -9,19 +9,21 @@
           <v-card-text>
             <div style="text-align: center;">
             <div>
-                <span><strong>{{character.currentActiveSpells()}}</strong>/<strong>{{character.maxActiveSpells()}}</strong> active spells.</span>
+              <h4>Active Spells</h4>
+              <strong>{{character.currentActiveSpells()}}</strong> of <strong>{{character.maxActiveSpells()}}</strong>
             </div>
             <div>
-                <v-icon v-for="n in character.currentActiveSpells()" :key="'activespellicon'+n" color="blue">grain</v-icon>
-                <v-icon v-for="n in character.maxActiveSpells() - character.currentActiveSpells()" :key="'inactivespellicon'+n" color="grey">grain</v-icon>
+                <v-icon v-for="n in character.currentActiveSpells()" :key="'activespellicon'+n" color="blue">flare</v-icon><v-icon v-for="n in character.maxActiveSpells() - character.currentActiveSpells()" :key="'inactivespellicon'+n" color="grey">flare</v-icon>
             </div>
             <div>
-                <span>Tolerance: <strong>{{character.spellsCastOnCharacter()}}</strong>/<strong>{{character.spellTolerance()}}</strong>.</span>
+              <h4>Spell Tolerance</h4>
+                <strong>{{character.spellsCastOnCharacter()}}</strong> of <strong>{{character.spellTolerance()}}</strong>
+            </div>
+            <div>
+                <v-icon v-for="n in character.spellsCastOnCharacter()" :key="'spellonicon'+n" color="blue">person</v-icon><v-icon v-for="n in character.spellTolerance() - character.spellsCastOnCharacter()" :key="'spellnotonicon'+n" color="grey">person</v-icon>
+            </div>
+            <div>
                 <span>Casting penalty: <strong>{{character.spellAccumulationPenalty()}}</strong>.</span>
-            </div>
-            <div>
-                <v-icon v-for="n in character.spellsCastOnCharacter()" :key="'spellonicon'+n" color="blue">person</v-icon>
-                <v-icon v-for="n in character.spellTolerance() - character.spellsCastOnCharacter()" :key="'spellnotonicon'+n" color="grey">person</v-icon>
             </div>
             <div>
                   <v-btn  v-for="spellName in character.starredSpells" :key="'favSpell'+spellName" small color="secondary" dark @click="addSpell(spellName)">{{spellName}}</v-btn>
@@ -30,34 +32,36 @@
             <v-expansion-panel expand>
               <v-expansion-panel-content v-for="(spell, index) in character.activeSpells" :key="'spell'+index">
                 <div slot="header">{{spell.name}}
-                  <v-icon v-if="spell.castByMe" color="blue">grain</v-icon>
-                  <v-icon v-if="!spell.castByMe" color="gray">grain</v-icon>
-                  <v-icon v-if="spell.castOnMe" color="blue">person</v-icon>
-                  <v-icon v-if="!spell.castOnMe" color="gray">person_outline</v-icon>
+                  <v-icon v-if="spell.castByMe" color="blue">flare</v-icon><v-icon v-if="!spell.castByMe" color="gray">flare</v-icon>
+                  <v-icon v-if="spell.castOnMe" color="blue">person</v-icon><v-icon v-if="!spell.castOnMe" color="gray">person_outline</v-icon>
+                  <span v-if="spell.potency">P <strong>{{spell.potency}}</strong></span>
+                  <span v-if="spell.duration">D <strong>{{spell.duration}}</strong></span>
+                  <span v-if="spell.aoe">AoE <strong>{{spell.aoe}}</strong></span>
                 </div>
                 
                 <v-card>
                   <v-card-text>
                     <v-layout row wrap class="input-group" align-center>                
                         <!-- <v-flex xs12 sm3 md3><v-text-field label="Spell" v-model="spell.name" @input="save()"></v-text-field></v-flex> -->
-                        <v-flex xs12 sm3 md3><v-select
+                        <v-flex xs12 sm12 md4><v-select
                           :items="spellNames"
                           v-model="spell.name"
                           label="Spell"
                           autocomplete
                           @input="save()"
                         ></v-select></v-flex>
-                        <v-flex xs12 sm3 md5><v-text-field label="Spell notes" v-model="spell.notes" @input="save()"></v-text-field></v-flex>
+                        <v-flex xs12 sm12 md8><v-text-field label="Spell notes" v-model="spell.notes" @input="save()"></v-text-field></v-flex>
                         
-                        <v-flex xs5 sm2 md1><v-text-field label="Potency" v-model="spell.potency" @change="save()"></v-text-field></v-flex>
-                        <v-flex xs5 sm2 md1><v-text-field label="Duration" v-model="spell.duration" @change="save()"></v-text-field></v-flex>
-                        <v-flex xs5 sm2 md1><v-text-field label="Targets" v-model="spell.targets" @change="save()"></v-text-field></v-flex>
+                        <v-flex xs6 sm3 md2><v-text-field label="Potency" v-model="spell.potency" @change="save()"></v-text-field></v-flex>
+                        <v-flex xs6 sm3 md2><v-text-field label="Duration" v-model="spell.duration" @change="save()"></v-text-field></v-flex>
+                        <v-flex xs6 sm3 md2><v-text-field label="Targets" v-model="spell.targets" @change="save()"></v-text-field></v-flex>
+                        <v-flex xs6 sm3 md2><v-text-field label="Area of Effect" v-model="spell.aoe" @change="save()"></v-text-field></v-flex>
 
-                        <v-flex xs5 sm2 md1><v-switch label="On" v-model="spell.castOnMe" @change="save()"></v-switch></v-flex>
-                        <v-flex xs5 sm2 md1><v-switch label="By" v-model="spell.castByMe" @change="save()"></v-switch></v-flex>
+                        <v-flex xs6 sm3 md1><v-switch label="On me" v-model="spell.castOnMe" @change="save()"></v-switch></v-flex>
+                        <v-flex xs6 sm3 md1><v-switch label="By me" v-model="spell.castByMe" @change="save()"></v-switch></v-flex>
 
-                        <v-flex xs2 sm2 md1><v-btn flat color="primary" dark @click="removeSpell(index)"><i class="material-icons">delete</i></v-btn></v-flex>
-                        <v-flex xs2 sm2 md1><v-btn small flat color="yellow" :outline="!character.isSpellStarred(spell.name)" @click="starSpell(index)"><i class="material-icons">star</i></v-btn></v-flex>
+                        <v-flex xs6 sm3 md1><v-btn flat color="primary" dark @click="removeSpell(index)"><i class="material-icons">delete</i></v-btn></v-flex>
+                        <v-flex xs6 sm3 md1><v-btn small flat color="yellow" :outline="!character.isSpellStarred(spell.name)" @click="starSpell(index)"><i class="material-icons">star</i></v-btn></v-flex>
                     </v-layout>
                     <v-flex xs12>
                     <h5 class="text-center">Spell Description</h5>
