@@ -13,14 +13,14 @@
               <strong>{{character.currentActiveSpells()}}</strong> of <strong>{{character.maxActiveSpells()}}</strong>
             </div>
             <div>
-                <v-icon v-for="n in character.currentActiveSpells()" :key="'activespellicon'+n" color="blue">flare</v-icon><v-icon v-for="n in character.maxActiveSpells() - character.currentActiveSpells()" :key="'inactivespellicon'+n" color="grey">flare</v-icon>
+                <v-icon v-for="n in character.currentActiveSpells()" :key="'activespellicon'+n" color="blue">flare</v-icon><v-icon v-for="n in (character.maxActiveSpells() - character.currentActiveSpells())" :key="'inactivespellicon'+n" color="grey">flare</v-icon>
             </div>
             <div>
               <h4>Spell Tolerance</h4>
                 <strong>{{character.spellsCastOnCharacter()}}</strong> of <strong>{{character.spellTolerance()}}</strong>
             </div>
             <div>
-                <v-icon v-for="n in character.spellsCastOnCharacter()" :key="'spellonicon'+n" color="blue">person</v-icon><v-icon v-for="n in character.spellTolerance() - character.spellsCastOnCharacter()" :key="'spellnotonicon'+n" color="grey">person</v-icon>
+                <v-icon v-for="n in character.spellsCastOnCharacter()" :key="'spellonicon'+n" color="blue">person</v-icon><v-icon v-for="n in character.unusedSpellTolerance()" :key="'spellnotonicon'+n" color="grey">person</v-icon>
             </div>
             <div>
                 <span>Casting penalty: <strong>{{character.spellAccumulationPenalty()}}</strong>.</span>
@@ -28,18 +28,21 @@
             </div>
             <v-expansion-panel expand>
               <v-expansion-panel-content v-for="(spell, index) in character.activeSpells" :key="'spell'+index">
-                <div slot="header"><strong>{{spell.name}}</strong>
+                <div slot="header">
+                  <v-icon v-if="spell.castByMe" color="blue">flare</v-icon><v-icon v-if="!spell.castByMe" color="gray">flare</v-icon>
+                  <v-icon v-if="spell.castOnMe" color="blue">person</v-icon><v-icon v-if="!spell.castOnMe" color="gray">person_outline</v-icon>
+
+                  <strong>{{spell.name}}</strong>
+                  <span v-if="!spell.name">No spell selected</span>
+
                   <span v-if="spell.notes"> - <em>{{spell.notes}}</em></span>
                   
-                  <span v-if="spell.potency"> P <strong>{{spell.potency}}</strong></span>
-                  <span v-if="spell.duration"> D <strong>{{spell.duration}}</strong></span>
-                  <span v-if="spell.targets"> T <strong>{{spell.targets}}</strong></span>
-                  <span v-if="spell.aoe"> AoE <strong>{{spell.aoe}}</strong></span>
-                  <div style="float:right;">
-                    <v-icon v-if="spell.castByMe" color="blue">flare</v-icon><v-icon v-if="!spell.castByMe" color="gray">flare</v-icon>
-                    <v-icon v-if="spell.castOnMe" color="blue">person</v-icon><v-icon v-if="!spell.castOnMe" color="gray">person_outline</v-icon>
-                  </div>
-                  </div>
+                  <span v-if="spell.potency"> P<span class="hidden-sm-and-down">otency</span> <strong>{{spell.potency}}</strong></span>
+                  <span v-if="spell.duration"> D<span class="hidden-sm-and-down">uration</span> <strong>{{spell.duration}}</strong></span>
+                  <span v-if="spell.targets"> T<span class="hidden-sm-and-down">argets</span> <strong>{{spell.targets}}</strong></span>
+                  <span v-if="spell.aoe"> AoE<span class="hidden-sm-and-down">ffect</span> <strong>{{spell.aoe}}</strong></span>
+                  
+                </div>
                 
                 <v-card>
                   <v-card-text>
@@ -69,8 +72,7 @@
                         </v-flex>
                     </v-layout>
                     <v-flex xs12>
-                    <h5 class="text-center">Spell Description</h5>
-                      {{spellDetails(spell.name)}}
+                      <Spell :spellName="spell.name"></Spell>
                     </v-flex>
                   </v-card-text>
                 </v-card>
@@ -88,6 +90,7 @@
 </template>
 
 <script>
+import Spell from "./dataView/Spell.vue";
 import spells from "../data/spells.json";
 
 export default {
@@ -149,6 +152,8 @@ export default {
       this.save();
     }
   },
-  components: {}
+  components: {
+    Spell: Spell
+  }
 };
 </script>
