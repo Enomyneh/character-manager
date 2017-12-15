@@ -32,15 +32,15 @@
                   <v-icon v-if="spell.castByMe" color="blue">flare</v-icon><v-icon v-if="!spell.castByMe" color="gray">flare</v-icon>
                   <v-icon v-if="spell.castOnMe" color="blue">person</v-icon><v-icon v-if="!spell.castOnMe" color="gray">person_outline</v-icon>
 
-                  <strong>{{spell.name}}</strong>
-                  <span v-if="!spell.name">No spell selected</span>
+                  <strong>&nbsp;&nbsp;{{spell.name}}</strong>
+                  <span v-if="!spell.name">Unnamed spell</span>
 
                   <span v-if="spell.notes"> - <em>{{spell.notes}}</em></span>
                   
-                  <span v-if="spell.potency"> P<span class="hidden-sm-and-down">otency</span> <strong>{{spell.potency}}</strong></span>
-                  <span v-if="spell.duration"> D<span class="hidden-sm-and-down">uration</span> <strong>{{spell.duration}}</strong></span>
-                  <span v-if="spell.targets"> T<span class="hidden-sm-and-down">argets</span> <strong>{{spell.targets}}</strong></span>
-                  <span v-if="spell.aoe"> AoE<span class="hidden-sm-and-down">ffect</span> <strong>{{spell.aoe}}</strong></span>
+                  <span v-if="spell.potency">&nbsp;&nbsp;P<span class="hidden-sm-and-down">otency</span>&nbsp;<strong>{{spell.potency}}</strong></span>
+                  <span v-if="spell.duration">&nbsp;&nbsp;D<span class="hidden-sm-and-down">uration</span>&nbsp;<strong>{{spell.duration}}</strong></span>
+                  <span v-if="spell.targets">&nbsp;&nbsp;T<span class="hidden-sm-and-down">argets</span>&nbsp;<strong>{{spell.targets}}</strong></span>
+                  <span v-if="spell.aoe">&nbsp;&nbsp;AoE<span class="hidden-sm-and-down">ffect</span>&nbsp;<strong>{{spell.aoe}}</strong></span>
                   
                 </div>
                 
