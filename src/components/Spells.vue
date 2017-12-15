@@ -20,7 +20,7 @@
                 <strong>{{character.spellsCastOnCharacter()}}</strong> of <strong>{{character.spellTolerance()}}</strong>
             </div>
             <div>
-                <v-icon v-for="n in character.spellsCastOnCharacter()" :key="'spellonicon'+n" color="blue">person</v-icon><v-icon v-for="n in character.unusedSpellTolerance()" :key="'spellnotonicon'+n" color="grey">person</v-icon>
+                <v-icon v-for="n in character.usedSpellTolerance()" :key="'spellonicon'+n" color="blue">person</v-icon><v-icon v-for="n in character.unusedSpellTolerance()" :key="'spellnotonicon'+n" color="grey">person_outline</v-icon><v-icon v-for="n in character.overSpellTolerance()" :key="'spellovericon'+n" color="red">person</v-icon>
             </div>
             <div>
                 <span>Casting penalty: <strong>{{character.spellAccumulationPenalty()}}</strong>.</span>

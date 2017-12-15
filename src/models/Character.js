@@ -225,12 +225,20 @@ export default class Character {
         return this.stamina;
     }
 
+    usedSpellTolerance() {
+        return Math.min(this.spellTolerance(), this.spellsCastOnCharacter());
+    }
+
     unusedSpellTolerance() {
         return Math.max(0, this.spellTolerance() - this.spellsCastOnCharacter());
     }
 
     spellAccumulationPenalty() {
         return Math.min(0, this.spellTolerance() - this.spellsCastOnCharacter());
+    }
+
+    overSpellTolerance() {
+        return Math.max(0, this.spellsCastOnCharacter() - this.spellTolerance());
     }
 
     // Defense
