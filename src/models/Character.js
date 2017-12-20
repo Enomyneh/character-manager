@@ -291,7 +291,7 @@ export default class Character {
 
     // Damage and Health
     maxHealth() {
-        return this.size + this.stamina;
+        return Number(this.size) + Number(this.stamina);
     }
 
     healthRollPenalty() {

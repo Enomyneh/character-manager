@@ -62,7 +62,7 @@ export default {
       return 15 - this.character.maxHealth();
     },
     unusedSpace: function() {
-      return 15 - this.character.maxHealth();
+      return Math.max(0, 15 - this.character.maxHealth());
     }
   }
 };
