@@ -1,8 +1,8 @@
 <template>
     <div>
-        <i class="material-icons red--text" style="cursor: pointer" @click="$emit('decrement')">remove_circle_outline</i>
-        <i v-for="n in filled()" :key="'f'+n" class="material-icons">lens</i><i v-for="n in unfilled()" :key="'u'+n" class="material-icons">panorama_fish_eye</i>
-        <i class="material-icons green--text" style="cursor: pointer" @click="$emit('increment')">add_circle</i>
+        <v-icon class="red--text" style="cursor: pointer" @click="$emit('decrement')">remove_circle_outline</v-icon>
+        <v-icon class="black--text" v-for="n in filled()" :key="'f'+n">lens</v-icon><v-icon v-for="n in unfilled()" :key="'u'+n" class="material-icons">panorama_fish_eye</v-icon>
+        <v-icon class="green--text" style="cursor: pointer" @click="$emit('increment')">add_circle</v-icon>
     </div>
 </template>
 

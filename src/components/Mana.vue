@@ -11,8 +11,8 @@
             <strong>{{character.maxManaPerTurn()}}</strong> mana per turn.
           </v-card-text>
           <v-card-actions>
-            <img src="/public/delete.png" @click="decrementValue" />
-            <img src="/public/add.png" @click="incrementValue" />
+            <v-icon class="material-icons red--text" style="cursor: pointer" @click="decrementValue">remove_circle_outline</v-icon>
+            <v-icon class="material-icons green--text" style="cursor: pointer" @click="incrementValue">add_circle</v-icon>
           </v-card-actions>
         </v-card>
       </v-flex> 
