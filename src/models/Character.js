@@ -87,6 +87,14 @@ export default class Character {
         this.initialiseField('willpower', this.maxWillpower(), newCharacter);
         this.initialiseField('mana', this.wisdom, newCharacter);
 
+        // Sanity checks TODO turn this into an array
+        console.log("Sanity checks");
+        console.log("Spent willpower: " + this.spentWillpowerDots + " max: " + this.maxWillpowerDots());
+        if (this.spentWillpowerDots > this.maxWillpowerDots()) {
+            console.log("Spent willpower dots greater than max dots.");
+            this.spentWillpowerDots = this.maxWillpowerDots();
+        }
+
         // Check for historic values
         if (this.notes) {
             this.noteSections.push({ "title": "Migrated text", "text": this.notes });
@@ -170,8 +178,14 @@ export default class Character {
             this.willpower = Math.min(this.maxWillpower(), Math.max(this.willpower + amount, 0))
         );
     }
-    adjustWillpowerDots(amount) {
-        this.spentWillpowerDots = Math.min(this.maxWillpowerDots(), Math.max(this.spentWillpowerDots + amount, 0));
+
+    adjustSpentWillpowerDots(amount) {
+        var min = 0;
+        var max = this.maxWillpowerDots();
+        this.spentWillpowerDots = Math.min(max, Math.max(min, this.spentWillpowerDots + amount));
+        console.log("Spent WP = " + this.spentWillpowerDots);
+
+        this.willpower = Math.min(this.willpower, this.maxWillpower());
     }
 
     // Mana
