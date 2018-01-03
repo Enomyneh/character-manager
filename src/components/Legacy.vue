@@ -14,21 +14,18 @@
               autocomplete
               @input="save()"
             ></v-select></v-flex>
-
-                  
-                      <v-card>
-                        <v-card-text>
-                        "name":"Austere",
-                        "nicknames":[""],
-                        "tagline":"",
-                        "hand":["L"],
-                        "order":["Guardians of the Veil"],
-                        "path":[""],
-                        "arcana":["Matter","Life"],
-                        "sources":[{"sourceBook":"Guardians of the Veil","sourcePage":"72-175"}],
-                        </v-card-text>
-                      </v-card>
-            <v-expansion-panel expand>
+              <v-card>
+                <v-card-text>
+                  <div v-if="hasNickname()">Also known as: <span v-for="nickname in getLegacy(character.legacy).nicknames" :key="nickname">{{nickname}}</span></div>
+                  <div v-if="getLegacy(character.legacy).tagline"><em>"{{getLegacy(character.legacy).tagline}}"</em></div>
+                  <div>Orders: <span v-for="order in getLegacy(character.legacy).order" :key="order">{{order}}</span></div>
+                  <div>Paths: <span v-for="path in getLegacy(character.legacy).path" :key="path">{{path}}</span></div>
+                  <div>Primary Arcana: <span v-for="arcana in getLegacy(character.legacy).arcana" :key="arcana">{{arcana}}</span></div>
+                  <div>Hands: <span v-for="hand in getLegacy(character.legacy).hand" :key="hand">{{hand}}</span></div>
+                  <div>Sources: <span v-for="source in getLegacy(character.legacy).sources" :key="source.sourceBook">{{source.sourceBook}} p{{source.sourcePage}}</span></div>
+                </v-card-text>
+              </v-card>
+            <v-expansion-panel expand v-if="character.legacy">
               <v-expansion-panel-content>
                 <div slot="header"><h3>Description</h3></div>  
                 <v-card>
@@ -116,6 +113,10 @@ export default {
         (this.character.legacy && !this.character.legacyAttainment) ||
         this.character.legacyAttainment < 1
       );
+    },
+    hasNickname: function(){
+      var nickNames = this.getLegacy(this.character.legacy).nicknames;
+      return nickNames && nickNames.length > 0 && nickNames[0].length > 0;
     }
   },
   components: {
