@@ -10,17 +10,7 @@
             <v-expansion-panel expand popout>
               <v-expansion-panel-content v-for="(note, index) in character.noteSections" :key="'note'+index" >
                 <div slot="header">
-                  <h3 
-                    @click="editTitleIndex = index;"
-                    v-if="editTitleIndex != index">{{note.title}}</h3>
-                  <v-text-field
-                    label="Title" 
-                    v-if="editTitleIndex == index"
-                    :autofocus="editTitleIndex == index"
-                    v-model="note.title"
-                    @input="save"
-                    @blur="editTitleIndex = null;"
-                    ></v-text-field>
+                  <h3>{{note.title}}</h3>
                 </div>
                 <v-card>
                   <NotesSection :note.sync="note" @input="save"></NotesSection>
