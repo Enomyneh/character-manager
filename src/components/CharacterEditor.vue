@@ -65,6 +65,7 @@ import Inventory from "./Inventory.vue";
 import Notes from "./Notes.vue";
 import Rotes from "./Rotes.vue";
 import Spells from "./Spells.vue";
+import Legacy from "./Legacy.vue";
 
 var getDefaultCharacter = function() {
   var characters = CharacterDao.getLocalCharacterIds();
@@ -93,6 +94,7 @@ export default {
         { name: "Inventory", componentType: "Inventory" },
         { name: "Rotes", componentType: "Rotes" },
         { name: "Spells", componentType: "Spells" },
+        { name: "Legacy", componentType: "Legacy" },
         // { name: "Nimbus", componentType: "Nimbus" },
         // { name: "Familiar", componentType: "Familiar" },
         { name: "Notes", componentType: "Notes" }
@@ -172,7 +174,8 @@ export default {
     Notes: Notes,
     Rotes: Rotes,
     Spells: Spells,
-    CharacterSettings : CharacterSettings
+    Legacy: Legacy,
+    CharacterSettings: CharacterSettings
   }
 };
 </script>
