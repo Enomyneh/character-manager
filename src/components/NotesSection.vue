@@ -3,8 +3,6 @@
                   <v-text-field
                    color="secondary" 
                     label="Title" 
-                    v-if="editTitleIndex == index"
-                    :autofocus="editTitleIndex == index"
                     v-model="note.title"
                     @input="save"
                     ></v-text-field>

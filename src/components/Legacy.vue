@@ -12,9 +12,10 @@
               v-model="character.legacy"
               label="Legacy name"
               autocomplete
+              clearable
               @input="save()"
             ></v-select></v-flex>
-              <v-card>
+              <v-card v-if="character.legacy">
                 <v-card-text>
                   <div v-if="hasNickname()">Also known as: <span v-for="nickname in getLegacy(character.legacy).nicknames" :key="nickname">{{nickname}}</span></div>
                   <div v-if="getLegacy(character.legacy).tagline"><em>"{{getLegacy(character.legacy).tagline}}"</em></div>
@@ -114,7 +115,7 @@ export default {
         this.character.legacyAttainment < 1
       );
     },
-    hasNickname: function(){
+    hasNickname: function() {
       var nickNames = this.getLegacy(this.character.legacy).nicknames;
       return nickNames && nickNames.length > 0 && nickNames[0].length > 0;
     }
