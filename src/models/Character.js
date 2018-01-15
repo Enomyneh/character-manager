@@ -261,11 +261,11 @@ export default class Character {
     }
 
     initiativeMod() {
-        return this.dexterity + this.composure;
+        return Number(this.dexterity) + Number(this.composure);
     }
 
     speed() {
-        return this.dexterity + this.strength + 5;
+        return Number(this.dexterity) + Number(this.strength) + 5;
     }
 
     updateSkillSpecialty(skill, value) {

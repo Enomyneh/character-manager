@@ -65,6 +65,16 @@
         <v-slide-y-transition mode="out-in">
           <CharacterEditor/>
         </v-slide-y-transition>
+        <v-dialog v-model="showingCombatTracker" fullscreen>
+          <v-card>
+            <v-card-title primary-title>
+              <h4 class="headline mb-0">Combat Tracker</h4>
+              <v-spacer></v-spacer>
+              <v-btn small flat color="primary" dark @click.stop="showingCombatTracker = !showingCombatTracker">Close</v-btn>
+            </v-card-title>
+            <CombatTracker/>
+          </v-card>
+        </v-dialog>
       </v-container>
     </v-content>
     <v-navigation-drawer
@@ -94,6 +104,7 @@
 <script>
 import CharacterDao from "./dataAccess/CharacterDao.js";
 import CharacterEditor from "./components/CharacterEditor.vue";
+import CombatTracker from "./components/dialogs/CombatTracker.vue";
 
 export default {
   data() {
@@ -120,6 +131,11 @@ export default {
           icon: "file_upload",
           title: "Load from file",
           func: this.loadFromFile
+        },
+        {
+          icon: "star",
+          title: "Combat Tracker",
+          func: this.showCombatTracker
         }
       ],
       miniVariant: false,
@@ -131,7 +147,8 @@ export default {
         if (menuItem.func) {
           menuItem.func();
         }
-      }
+      },
+      showingCombatTracker: false
     };
   },
   created: function() {
@@ -178,10 +195,14 @@ export default {
     },
     loadFromBrowser: function(id) {
       this.$eventHub.$emit("loadFromBrowser", id);
+    },
+    showCombatTracker: function() {
+      this.showingCombatTracker = true;
     }
   },
   components: {
-    CharacterEditor
+    CharacterEditor,
+    CombatTracker
   }
 };
 </script>

@@ -7,17 +7,15 @@
           <h4 class="headline mb-0">Health</h4>
         </v-card-title>
           <v-card-text>
-            <div v-if="character.healthRollPenalty() < 0">
-              Roll penalty: <strong>{{character.healthRollPenalty()}}</strong>
-            </div>
-            <div>
-                <img v-for="n in character.maxHealth()" src="/public/dot-filled.png" :key="'filledDots'+n"><img v-for="n in unusedSpace()" src="/public/dot-empty.png" :key="'emptyDots'+n">
-            </div>
-            <div>
-                <img v-for="n in character.aggravatedDamage" src="/public/box-asterix.png" :key="'aggravated'+n"><img v-for="n in character.lethalDamage" :key="'lethal'+n" src="/public/box-cross.png"><img v-for="n in character.bashingDamage" :key="'bashing'+n" src="/public/box-stroke.png"><img v-for="n in undamaged()"  :key="'undamaged'+n" src="/public/box-empty.png"><img v-for="n in unusedSpace()" :key="'unused'+n" src="/public/box-empty-grey.png">
-            </div>
+            <health-dots
+              :bashing="character.bashingDamage"
+              :lethal="character.lethalDamage"
+              :aggravated="character.aggravatedDamage"
+              :maxHealth="character.maxHealth()"
+              :roll-penalty="character.healthRollPenalty()"
+              compact            ></health-dots>
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions v-if="mode != 'readonly'">
             <i class="material-icons green--text" style="cursor: pointer" @click="character.healDamage('A', 1); save();">remove_circle_outline</i>
             <img src="/public/box-asterix.png">
             <i class="material-icons red--text" style="cursor: pointer" @click="character.addAggravatedDamage(); save();">add_circle</i>
@@ -37,11 +35,13 @@
 </template>
 
 <script>
+import HealthDots from "./HealthDots.vue";
+
 export default {
   model: {
     prop: "character"
   },
-  props: ["character", "noHeader"],
+  props: ["character", "noHeader", "compact", "mode"],
   data() {
     return {};
   },
@@ -64,6 +64,9 @@ export default {
     unusedSpace: function() {
       return Math.max(0, 15 - this.character.maxHealth());
     }
+  },
+  components: {
+    HealthDots
   }
 };
 </script>
