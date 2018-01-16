@@ -10,10 +10,10 @@
     <v-flex xs12 sm1><v-text-field label="Stamina" v-model="combatant.stamina" type="number" min="1"></v-text-field></v-flex>
     <v-flex xs12 sm1><v-text-field label="Composure" v-model="combatant.composure" type="number" min="1"></v-text-field></v-flex>
     
-    <v-flex xs12 sm1><v-text-field label="Int" v-model="combatant.baseInitiative" type="number" min="0"></v-text-field></v-flex>
-    <v-flex xs12 sm1><v-text-field label="Mod" v-model="combatant.additionInitiative" type="number" min="0"></v-text-field></v-flex>
+    <v-flex xs12 sm1><v-text-field label="Int" :value="combatant.initiativeMod()" type="number" min="0"></v-text-field></v-flex>
+    <v-flex xs12 sm1><v-text-field label="Mod" v-model="combatant.additionalInitiative" type="number" min="0"></v-text-field></v-flex>
     <v-flex xs12 sm1><v-text-field label="Roll" v-model="combatant.initiativeRoll" type="number" min="1" max="10"></v-text-field></v-flex>
-    <v-flex xs12 sm1><v-text-field dark class="secondary" label="=" :value="initiativeTotal()" readonly></v-text-field></v-flex>
+    <v-flex xs12 sm1><v-text-field label="=" :value="initiativeTotal()" readonly></v-text-field></v-flex>
     <v-flex xs12 sm1><v-text-field label="Max Health" :value="combatant.maxHealth()" type="number" min="1" max="10"></v-text-field></v-flex>
 
     <v-flex xs12 sm1><v-text-field label="Size" v-model="combatant.size" type="number" min="1"></v-text-field></v-flex>
@@ -41,8 +41,8 @@ export default {
   methods: {
     initiativeTotal: function() {
       return (
-        Number(this.combatant.baseInitiative) +
-        Number(this.combatant.additionInitiative) +
+        Number(this.combatant.initiativeMod()) +
+        Number(this.combatant.additionalInitiative) +
         Number(this.combatant.initiativeRoll)
       );
     }

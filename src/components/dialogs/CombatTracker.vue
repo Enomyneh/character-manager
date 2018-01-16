@@ -5,7 +5,7 @@
           <v-expansion-panel-content v-for="(combatant, index) in combatants" :key="index">
             <div slot="header">
               <h3>
-                {{combatant.name}} {{combatant.initiativeTotal}} - 
+                {{combatant.name}} {{combatant.initiativeTotal}} [{{initiativeTotal(combatant)}}]  
                 <health-dots
                   :bashing="combatant.bashingDamage"
                   :lethal="combatant.lethalDamage"
@@ -43,7 +43,17 @@ export default {
   },
   methods: {
     addCombatant: function() {
-      this.combatants.push(new Character());
+      var combatant = new Character();
+      combatant.initiativeRoll = Math.ceil(Math.random() * 10);
+      combatant.additionalInitiative = 0;
+      this.combatants.push(combatant);
+    },
+    initiativeTotal: function(combatant) {
+      return (
+        Number(combatant.initiativeMod()) +
+        Number(combatant.additionalInitiative) +
+        Number(combatant.initiativeRoll)
+      );
     }
   },
   components: {
