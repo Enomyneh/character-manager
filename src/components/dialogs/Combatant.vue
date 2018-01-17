@@ -13,6 +13,9 @@
     <v-flex xs12 sm1><v-text-field label="Int" :value="combatant.initiativeMod()" type="number" min="0"></v-text-field></v-flex>
     <v-flex xs12 sm1><v-text-field label="Mod" v-model="combatant.additionalInitiative" type="number" min="0"></v-text-field></v-flex>
     <v-flex xs12 sm1><v-text-field label="Roll" v-model="combatant.initiativeRoll" type="number" min="1" max="10"></v-text-field></v-flex>
+    <v-flex xs12 sm1><v-text-field label="Subroll 1" v-model="combatant.initiativeSubroll1" type="number" min="1" max="10"></v-text-field></v-flex>
+    <v-flex xs12 sm1><v-text-field label="Subroll 2" v-model="combatant.initiativeSubroll2" type="number" min="1" max="10"></v-text-field></v-flex>
+    <v-flex xs12 sm1><v-text-field label="Subroll 3" v-model="combatant.initiativeSubroll3" type="number" min="1" max="10"></v-text-field></v-flex>
     <v-flex xs12 sm1><v-text-field label="=" :value="initiativeTotal()" readonly></v-text-field></v-flex>
     <v-flex xs12 sm1><v-text-field label="Max Health" :value="combatant.maxHealth()" type="number" min="1" max="10"></v-text-field></v-flex>
 

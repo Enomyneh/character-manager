@@ -5,7 +5,7 @@
           <v-expansion-panel-content v-for="(combatant, index) in combatants" :key="index">
             <div slot="header">
               <h3>
-                {{combatant.name}} {{combatant.initiativeTotal}} [{{initiativeTotal(combatant)}}]  
+                {{combatant.name}} [{{initiativeTotal(combatant)}}.{{combatant.initiativeSubroll1}}.{{combatant.initiativeSubroll2}}.{{combatant.initiativeSubroll3}}]  
                 <health-dots
                   :bashing="combatant.bashingDamage"
                   :lethal="combatant.lethalDamage"
@@ -26,6 +26,7 @@
       </v-card-text>
       <v-card-actions>
       <v-btn small flat color="primary" dark @click="addCombatant()">Add Combatant</v-btn>
+      <v-btn small flat color="primary" dark @click="$eventHub.$emit('sortCombatants')">Resort</v-btn>
       </v-card-actions>
     </v-card>
 </template>
@@ -41,12 +42,36 @@ export default {
       combatants: []
     };
   },
+  created: function() {
+    this.$eventHub.$on("sortCombatants", () => {
+      this.combatants.sort((a, b) => {
+
+        if (this.initiativeTotal(a) < this.initiativeTotal(b)) { return 1; }
+        if (this.initiativeTotal(a) > this.initiativeTotal(b)) { return -1; }
+        
+        if(a.initiativeSubroll1 < b.initiativeSubroll1) { return 1; }
+        if(a.initiativeSubroll1 > b.initiativeSubroll1) { return -1; }
+        
+        if(a.initiativeSubroll2 < b.initiativeSubroll2) { return 1; }
+        if(a.initiativeSubroll2 > b.initiativeSubroll2) { return -1; }
+        
+        if(a.initiativeSubroll3 < b.initiativeSubroll3) { return 1; }
+        if(a.initiativeSubroll3 > b.initiativeSubroll3) { return -1; }
+        
+        return 0;
+      });
+    });
+  },
   methods: {
     addCombatant: function() {
       var combatant = new Character();
       combatant.initiativeRoll = Math.ceil(Math.random() * 10);
+      combatant.initiativeSubroll1 = Math.ceil(Math.random() * 10);
+      combatant.initiativeSubroll2 = Math.ceil(Math.random() * 10);
+      combatant.initiativeSubroll3 = Math.ceil(Math.random() * 10);
       combatant.additionalInitiative = 0;
       this.combatants.push(combatant);
+      this.$eventHub.$emit("sortCombatants");
     },
     initiativeTotal: function(combatant) {
       return (
