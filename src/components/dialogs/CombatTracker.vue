@@ -26,7 +26,7 @@
       </v-card-text>
       <v-card-actions>
       <v-btn small flat color="primary" dark @click="addCombatant()">Add Combatant</v-btn>
-      <v-btn small flat color="primary" dark @click="$eventHub.$emit('sortCombatants')">Resort</v-btn>
+      <v-btn small flat color="primary" dark @click="$eventHub.$emit('sortCombatants')">Re-sort</v-btn>
       </v-card-actions>
     </v-card>
 </template>
